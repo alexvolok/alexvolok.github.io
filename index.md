@@ -1,3 +1,9 @@
+<script type="javascript">
+// similar behavior as an HTTP redirect
+window.location.replace("https://www.alexvolok.com");
+</script>
+
+
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/alexvolok/alexvolok.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
