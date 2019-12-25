@@ -51,7 +51,7 @@ The authoring canvas should have a such look:
 
 ##### Step 2: Configure a Web Activity task
 Click on a Login activity and open tab “Settings”. Then fill following fields with values:
- 1.	URL: An url to perform authentication and get a token (1). In my case it is: https://start.exactonline.es/api/oauth2/token
+ 1.	URL: An url to perform authentication and get a token (1). In my case it is: https://start.exactonline.nl/api/oauth2/token
  2. Method: POST (2)
  3. Add a new header (3):
      -  Name: Content-Type

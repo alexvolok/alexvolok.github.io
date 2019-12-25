@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Azure Data Factory and REST APIs - Ingesting Data into a Data Lake
-description: Azure Data Factory and REST APIs - Ingesting Data into a Data Lake
+title: Azure Data Factory and REST APIs - Ingesting Data
+description: Azure Data Factory and REST APIs - Ingesting Data
 comments: false
 keywords: Azure Data Factory REST API COPY ACTIVITY
 published: true 
@@ -37,86 +37,59 @@ And a final piece – Copy activity. It is a generic task that copies data among
 
 
 #### Making Copy Activity working
-To make a Copy activity working it is not enough just drop such object to a canvas. Following few steps to be performed one by one.
+To make a Copy activity working it is not enough just drop such object to a canvas, because Linked Services and Datasets are also requred. Following few steps covers these actions.
 
-##### Step 1. Configure Linked Services
+##### Step 1. Create and Configure Linked Services
 
-Go to Connections tab and create two linked services:
-One that references to REST API and a second to a storage account
+Go to Connections page (1) and click on "+ New" to create linked services:
 
-**LS_REST_EOL:**
 
- -	Type: REST
- - Name: LS_REST_EOL
- - Base URL: https://start.exactonline.es
- - Authentication Type: Anonymous
- - Server Certificate Validation: Disable
+<img src="/assets/images/posts/adf-rest-p2/step1-1.png" alt="Step 1.1" />
 
-**LS_ADLS_EOL:**
+**1. Linked Service to a Data Source:**
 
- - Type: Azure Data Lake Storage Gen2
- - Name: LS_ADLS_EOL
- - Authentication Method: Account Key
- - Account Selection Method: From Azure Subscription
- - Choose right subscription and account name
+ - Data Store: REST
+ - Name: LS_REST_EOL (1)
+ - Base URL: https://start.exactonline.nl (2)
+ - Authentication Type: Anonymous (3)
+ - Server Certificate Validation: Disable (4)
+
+<img src="/assets/images/posts/adf-rest-p2/step1-2.png" alt="Step 1.2" />
+
+**2. Linked Service to a Data Sink:**
+
+ - Data Store: Azure Data Lake Storage Gen2
+ - Name: LS_ADLS_EOL (1)
+ - Authentication Method: Account Key (2)
+ - Account Selection Method: From Azure Subscription (3)
+ - Choose right subscription and account name (4)
  
-to do: 
- - add picture(s)
- 
+<img src="/assets/images/posts/adf-rest-p2/step1-3.png" alt="Step 1.3" />
 
 
 
+##### Step 2. Create and Configure Datasets
 
+ 1. Configure a Source Dataset
+ a.	Click on a plus and choose “New Dataset”
+ b.	Search “REST”
+ c.	In a General tab give a name “DS_SRC_REST”
+ d.	In a Connection tab choose a linked service: eolREST and add a relative url: /api/read/Hosting.svc/ContractStatistics
 
-<br />
-<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+ 2.	Configure a Destination Dataset
+ a.	Search “Data Lake Gen2”
+ b.	Choose type: Delimited Text
+ c.	Set name: “DS_DEST_ADLS”
+ d.	Choose Linked Service “eolADLS”
+ e.	File Path: Enter a container name into a first field and “eol” into a second field a “contractstatitistics.csv” into a third one
+ f.	Enable a checkbox: “First row as header”
+ g.	Choose None for “Import Schema”
 
-
-#### Copy Activity
-
-##### Step 1. Configure Linked Services
-
-Go to Connections tab and create two linked services:
-
-eolREST
-
-   -	Type: REST
-   - Name: eolREST
-   - Base URL: https://start.exactonline.es
-   - Authentication Type: Anonymous
-  - Server Certificate Validation: Disable
-
-Adlsgen2
-
-i.	Type: Azure Data Lake Storage Gen2
-ii.	Name: eolADLS
-iii.	Authentication Method: Account Key
-iv.	Account Selection Method: From Azure Subscription
-v.	Choose right subscription and account name
-vi.	Click Apply to save a linked Services
-2)	Drop Copy Activity and name it “Ingest REST Data”
-3)	Open “Source” tab and click on “New” button
-
-##### Step 2. Configure Datasets
-
-1)	Configure a Source Dataset
-a.	Click on a plus and choose “New Dataset”
-b.	Search “REST”
-c.	In a General tab give a name “DS_SRC_REST”
-d.	In a Connection tab choose a linked service: eolREST and add a relative url: /api/read/Hosting.svc/ContractStatistics
-2)	Configure a Destination Dataset
-a.	Search “Data Lake Gen2”
-b.	Choose type: Delimited Text
-c.	Set name: “DS_DEST_ADLS”
-d.	Choose Linked Service “eolADLS”
-e.	File Path: Enter a container name into a first field and “eol” into a second field a “contractstatitistics.csv” into a third one
-f.	Enable a checkbox: “First row as header”
-g.	Choose None for “Import Schema”
 
 ##### Step 3. Create a Copy Activity
+
 1)	Drop a Copy Activity on a canvas of a pipeline
-2)	Connect exiting Web activity with a new one:
- 
+2)	Connect exiting Web activity with a new one: 
 3)	On a Source Tab choose a dataset “DS_SRC_REST”. This will show new fields to adjust
 a.	Request Method: “GET”
 b.	Request Body: Should remain empty
@@ -127,4 +100,12 @@ ii.	Value: Bearer @{activity('Login').output.access_token}
 a.	Choose a data source “DS_DEST_ADLS”
 b.	Remain columns can remain as is
 
+
 ##### Step 4. Run a test execution
+
+
+
+
+
+
+
