@@ -36,6 +36,33 @@ The next abstraction is a Dataset. The Dataset is a named view of data that simp
 And a final piece – Copy activity. It is a generic task that copies data among various data stores located on-premises and in the cloud.
 
 
+#### Making Copy Activity working
+To make a Copy activity working it is not enough just drop such object to a canvas. Following few steps to be performed one by one.
+
+##### Step 1. Configure Linked Services
+
+Go to Connections tab and create two linked services:
+One that references to REST API and a second to a storage account
+
+**LS_REST_EOL:**
+
+ -	Type: REST
+ - Name: LS_REST_EOL
+ - Base URL: https://start.exactonline.es
+ - Authentication Type: Anonymous
+ - Server Certificate Validation: Disable
+
+**LS_ADLS_EOL:**
+
+ - Type: Azure Data Lake Storage Gen2
+ - Name: LS_ADLS_EOL
+ - Authentication Method: Account Key
+ - Account Selection Method: From Azure Subscription
+ - Choose right subscription and account name
+ 
+to do: 
+ - add picture(s)
+ 
 
 
 
