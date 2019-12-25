@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ADFv2 and REST APIs - Dealing with oauth2 authentication
+title: Azure Data Factory and REST APIs - Dealing with oauth2 authentication
 description: ADFv2 and REST APIs - Dealing with oauth2 authentication
 comments: false
 keywords: Azure Data Factory REST API OAUTH
