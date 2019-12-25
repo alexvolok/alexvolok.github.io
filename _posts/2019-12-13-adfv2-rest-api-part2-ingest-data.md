@@ -14,7 +14,7 @@ The REST API we are use is secured with OAUTH2 authentication. It requires a Bea
 
 The walkthrough information of this post does not cover creation of a storage account. In order to proceed, an Azure Data Lake gen2 account has to be created because it will be used as a sink destination later by a Copy activity.
 
-#### How Copy activity works
+### How Copy activity works
 
 To use the Copy activity in Azure Data Factory, following steps to be done:
  -	Create linked services for the source data store and the sink data store
@@ -36,7 +36,7 @@ The next abstraction is a Dataset. The Dataset is a named view of data that simp
 And a final piece – Copy activity. It is a generic task that copies data among various data stores located on-premises and in the cloud.
 
 
-#### Making Copy Activity working
+### Making Copy Activity working
 To make a Copy activity working it is not enough just drop such object to a canvas, because Linked Services and Datasets are also requred. Following few steps covers these actions.
 
 ##### Step 1. Create and Configure Linked Services
