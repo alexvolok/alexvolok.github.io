@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Azure Data Factory and REST APIs – Ingesting Data into a Data Lake
-description: Azure Data Factory and REST APIs – Ingesting Data into a Data Lake
+title: Azure Data Factory and REST APIs - Ingesting Data into a Data Lake
+description: Azure Data Factory and REST APIs - Ingesting Data into a Data Lake
 comments: false
 keywords: Azure Data Factory REST API COPY ACTIVITY
 published: true 
