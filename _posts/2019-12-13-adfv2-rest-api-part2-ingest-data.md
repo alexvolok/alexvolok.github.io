@@ -7,8 +7,43 @@ keywords: Azure Data Factory REST API COPY ACTIVITY
 published: true 
 ---
 
-In this first post I am going to discuss how to apply oauth2 authentication to ingest REST APIs data.
-OAUTH2 became a standard de facto in cloud and SaaS services, it used widely by Twitter, Microsoft Azure, Amazon. My example is based on EXACT Online API. The end-target of the blog series is to setup an entire pipeline which will ingest data from a REST API and load it to a data lake.
+In this blog post I would like to show of how to add and configure a Copy Activity which will ingest REST data and store it in a data lake. 
+The REST API we are use is secured with OAUTH2 authentication. It requires a Bearer token to be obtained. Such technique was already demonstrated by me in a previous post of the series: <a href='/2019/adfv2-rest-api-part1-oauth2'>Azure Data Factory and REST APIs - Dealing with oauth2 authentication</a>
+
+#### Prerequisites
+
+The walkthrough information of this post does not cover creation of a storage account. In order to proceed, an Azure Data Lake gen2 account has to be created because it will be used as a sink destination later by a Copy activity.
+
+#### How Copy activity works
+
+To use the Copy activity in Azure Data Factory, following steps to be done:
+ -	Create linked services for the source data store and the sink data store
+ -	Create datasets for the source and sink
+ -	Create a pipeline with the Copy activity
+
+Copy activity uses input dataset to fetch data from a source linked service and copies it using an Output Dataset to a sink linked service
+
+This process can be illustrated as a visual flow:
+ 
+<img src="/assets/images/posts/adf-rest-p2/copy_activity_example.png" alt="Step 0" />
+
+
+In the example picture two linked services created: Amazon S3 and Azure Storage
+They act like connection managers in SSIS.
+
+The next abstraction is a Dataset. The Dataset is a named view of data that simply points or references the data that has to bed used in activities as inputs and outputs.
+
+And a final piece – Copy activity. It is a generic task that copies data among various data stores located on-premises and in the cloud.
+
+
+
+
+
+
+
+<br />
+<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+
 
 #### Copy Activity
 
