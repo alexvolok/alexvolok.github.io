@@ -3,7 +3,7 @@ title_left    : ""
 title_right   : "alexvolok" # default: ""
 description   : "field notes"
 keywords      : "alexvolok.com alexandr volok blog sql server specialist dba"
-url           : https://www.alexvolok.com # site url
+url           : https://www.datamind.pro # site url
 baseurl       : "" # apply repo name like "/myproject" if used under gh-pages branch, else (under master branch) just leave empty/blank
 cover         : "" # image uri like logo/cover image for site seo
 
