@@ -70,21 +70,28 @@ Go to Connections page (1) and click on "+ New" to create linked services:
 
 ##### Step 2. Create and Configure Datasets
 
- 1. Configure a Source Dataset
- a.	Click on a plus and choose “New Dataset”
- b.	Search “REST”
- c.	In a General tab give a name “DS_SRC_REST”
- d.	In a Connection tab choose a linked service: eolREST and add a relative url: /api/read/Hosting.svc/ContractStatistics
+In this step two datasets to be created. One per corresponding linked service. Therefore, source and sink datasets. To create them, click on a three dots that stands next to a Datasets in left pane and then choose "New dataset":
 
- 2.	Configure a Destination Dataset
- a.	Search “Data Lake Gen2”
- b.	Choose type: Delimited Text
- c.	Set name: “DS_DEST_ADLS”
- d.	Choose Linked Service “eolADLS”
- e.	File Path: Enter a container name into a first field and “eol” into a second field a “contractstatitistics.csv” into a third one
- f.	Enable a checkbox: “First row as header”
- g.	Choose None for “Import Schema”
+<img src="/assets/images/posts/adf-rest-p2/step2-1.png" alt="Step 2.1" />
 
+
+ 1. Create a source dataset:
+  -	In a Data Store wizard search for a “REST”
+  - In a General tab give a name: “DS_SRC_REST”
+  - In a Connection tab choose a linked service: LS_REST_EOL and set a relative url: /api/read/Hosting.svc/ContractStatistics
+
+<img src="/assets/images/posts/adf-rest-p2/step2-2.png" alt="Step 2.2" />
+
+2. Create a sink dataset
+  - In a Data Store wizard search for a keyword “Data" and choose "Data Lake gen2"
+  - Choose the format type: Delimited Text
+  - Set a name: “DS_SINK_ADLS”
+  - Choose Linked Service "LS_ADLS_EOL"
+ - File Path: The first field receives a storage container name. In my case it is "dwh". The second field is for a folder name -  “eol” and “contractstatitistics.csv” is a file name. Therefore, the full path is: ```/dwh/eol/contractstatitistics.csv```
+  - Enable a checkbox: “First row as header”
+  - Choose None for “Import Schema”
+
+<img src="/assets/images/posts/adf-rest-p2/step2-3.png" alt="Step 2.3" />
 
 ##### Step 3. Create a Copy Activity
 
