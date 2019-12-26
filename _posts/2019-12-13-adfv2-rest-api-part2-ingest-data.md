@@ -75,14 +75,14 @@ In this step two datasets to be created. One per corresponding linked service. T
 <img src="/assets/images/posts/adf-rest-p2/step2-1.png" alt="Step 2.1" />
 
 
- 1. Create a source dataset:
+ ###### 1. Create a source dataset:
   -	In a Data Store wizard search for a “REST”
   - In a General tab give a name: “DS_SRC_REST”
   - In a Connection tab choose a linked service: LS_REST_EOL and set a relative url: /api/read/Hosting.svc/ContractStatistics
 
 <img src="/assets/images/posts/adf-rest-p2/step2-2.png" alt="Step 2.2" />
 
-2. Create a sink dataset
+###### 2. Create a sink dataset:
   - In a Data Store wizard search for a keyword “Data" and choose "Data Lake gen2"
   - Choose the format type: Delimited Text
   - Set a name: “DS_SINK_ADLS”
@@ -95,18 +95,24 @@ In this step two datasets to be created. One per corresponding linked service. T
 
 ##### Step 3. Create a Copy Activity
 
-1)	Drop a Copy Activity on a canvas of a pipeline
-2)	Connect exiting Web activity with a new one: 
-3)	On a Source Tab choose a dataset “DS_SRC_REST”. This will show new fields to adjust
-a.	Request Method: “GET”
-b.	Request Body: Should remain empty
-c.	Add new request header:
-i.	Name: Authorization
-ii.	Value: Bearer @{activity('Login').output.access_token} 
-4)	On a Sink tab choose a dataset:
-a.	Choose a data source “DS_DEST_ADLS”
-b.	Remain columns can remain as is
+ 1.	Drop a Copy activity on a canvas of a pipeline and give it a name "Ingest REST Data"
+ 2.	Connect exiting "Login" activity with a just added one: 
 
+<img src="/assets/images/posts/adf-rest-p2/step3-1.png" alt="Step 3.1" />
+
+ 3.	On a Source Tab choose a dataset “DS_SRC_REST”. This will show new fields to adjust
+     -	Request Method: “GET”
+     -	Request Body: Should remain empty
+     -	Add new request header:
+         -	Name: ```Authorization```
+         -	Value: ```Bearer @{activity('Login').output.access_token}``` 
+
+     <img src="/assets/images/posts/adf-rest-p2/step3-2.png" alt="Step 3.2" />
+ 4.	On a Sink tab choose a dataset:
+    -	Choose a data source “DS_DEST_ADLS”
+    -	Remain columns can remain as is
+    
+    <img src="/assets/images/posts/adf-rest-p2/step3-3.png" alt="Step 3.3" />
 
 ##### Step 4. Run a test execution
 
