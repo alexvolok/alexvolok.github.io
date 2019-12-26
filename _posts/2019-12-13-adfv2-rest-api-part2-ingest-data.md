@@ -75,7 +75,7 @@ In this step two datasets to be created. One per corresponding linked service. T
 <img src="/assets/images/posts/adf-rest-p2/step2-1.png" alt="Step 2.1" />
 
 
- ###### 1. Create a source dataset:
+###### 1. Create a source dataset:
   -	In a Data Store wizard search for a “REST”
   - In a General tab give a name: “DS_SRC_REST”
   - In a Connection tab choose a linked service: LS_REST_EOL and set a relative url: /api/read/Hosting.svc/ContractStatistics
