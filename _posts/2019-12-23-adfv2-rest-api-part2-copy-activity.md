@@ -139,3 +139,9 @@ After setting up all dependent objects it is time to perform a test execution to
 
 
 
+### Final words
+The second piece of the pipeline – a Copy activity was implemented. It establishes connections with a REST data source, and it tries to write data to Azure storage. 
+
+The REST data source outputs data in a JSON format, however, we specified to write data to the sink as a “Delimited Text”, therefore Mapping and Pagination also need to be implemented and I will cover it in a next blog post.
+
+Many thanks for reading.
