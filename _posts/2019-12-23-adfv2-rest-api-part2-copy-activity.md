@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Azure Data Factory and REST APIs - Ingesting Data
-description: Azure Data Factory and REST APIs - Ingesting Data
+title: Azure Data Factory and REST APIs - Setting up a Copy activity
+description: Azure Data Factory and REST APIs - Setting up a Copy activity
 comments: false
 keywords: Azure Data Factory REST API COPY ACTIVITY
 published: true 

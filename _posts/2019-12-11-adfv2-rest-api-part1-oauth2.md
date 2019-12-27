@@ -77,4 +77,4 @@ Because the output in a JSON format, other pipeline activities can get access to
 
 ``` activity('Login').output.access_token ```
 
-The next post is going to be focused on implementing a second piece of a pipeline - Copy Activity.
+The next post is going to be focused on implementing a second piece of a pipeline - Copy activity: <a href='/2019/adfv2-rest-api-part2-copy-activity'>Azure Data Factory and REST APIs - Setting up a Copy activity</a>.
