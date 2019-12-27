@@ -46,7 +46,7 @@ Go to Connections page (1) and click on "+ New" to create linked services:
 
 <img src="/assets/images/posts/adf-rest-p2/step1-1.png" alt="Step 1.1" />
 
-**1. Linked Service to a Data Source:**
+**Linked Service to a Data Source:**
 
  - Data Store: REST
  - Name: LS_REST_EOL (1)
@@ -56,7 +56,7 @@ Go to Connections page (1) and click on "+ New" to create linked services:
 
 <img src="/assets/images/posts/adf-rest-p2/step1-2.png" alt="Step 1.2" />
 
-**2. Linked Service to a Data Sink:**
+**Linked Service to a Data Sink:**
 
  - Data Store: Azure Data Lake Storage Gen2
  - Name: LS_ADLS_EOL (1)
@@ -114,10 +114,27 @@ In this step two datasets to be created. One per corresponding linked service. T
     
     <img src="/assets/images/posts/adf-rest-p2/step3-3.png" alt="Step 3.3" />
 
+
 ##### Step 4. Run a test execution
 
+After setting up all depending objects it is a time to perform a test execution to validate that we are on a right track. Just like on a screenshot below, a button Debug to be pressed. This will trigger execution of the pipeline:
 
+<img src="/assets/images/posts/adf-rest-p2/step4-1.png" alt="Step 4.1" />
 
+ 
+ 1.	Click on Debug (1)
+ 2.	Navigate to an output tab (2) and wait when all activities of the pipeline have status other than “In Progress” or “Queued”
+ 3.	When the execution of a Copy activity is finished, click on a details button (3). This will open a modal window with a detailed information of a copy activity:
+
+    <img src="/assets/images/posts/adf-rest-p2/step4-2.png" alt="Step 4.2" />
+
+   The window shows a flow of the data and it shows one issue: the activity read 1.8 MB from a REST, but written few bytes only.
+
+   Storage Explorer confirms - the new empty file was created:
+
+   <img src="/assets/images/posts/adf-rest-p2/step4-3.png" alt="Step 4.3" />
+
+   Such output result can be explained by fact that Mapping and Pagination are still not configured in a Copy activity. These two actions are going to be covered in the next blog post.
 
 
 
