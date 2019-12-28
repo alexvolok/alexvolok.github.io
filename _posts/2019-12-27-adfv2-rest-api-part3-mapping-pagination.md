@@ -17,7 +17,7 @@ However, to ingest hierarchical data like JSON or REST and then load it in as a 
 
 #### Prerequisites
 
- 1.	REST API Data source with oauth2. I use ExactOnline in my examples.
+ 1.	REST API Data source. I use ExactOnline SaaS service in this post as an example.
  2.	Azure Storage account.
 
 
