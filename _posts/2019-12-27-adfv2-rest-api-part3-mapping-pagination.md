@@ -59,7 +59,7 @@ As the result, the schema of a hierarchical format is imported. In the current e
 #### Step 3: Adjust mapping settings
 As soon as schema imported a few more things to be finalized:
  1.	Set a collection reference (1): JSON path to be specified. In our case it is: ```$['d']['results']```
- 2.	Expand the node ```results``` and remove columns that are not necessary to be imported. 
+ 2.	Expand the node ```results``` and remove columns that do not have to be imported. 
  3.	Exclude value ```__next``` from the mapping, it should not be included in the final export 
 
 #### Step 4. Run a test execution
