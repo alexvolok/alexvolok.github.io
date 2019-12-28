@@ -46,8 +46,8 @@ The access token can be retrieved by running a debug execution (1) and opening a
 
 #### Step 2: Import schema
 
-When the token is copied to a clipboard click on “Import schemas” again, enter the token into a popup window.
-The schema in a hierarchical format is imported. It the current example it contains:
+When the token is copied to a clipboard click on “Import schemas” again, paste the token in a popup window.
+As the result, the schema of a hierarchical format is imported. In the current example it contains:
 
  1.	A Root element – ```d``` (2)
  2.	A collection of items – ```results``` (3)
@@ -59,7 +59,7 @@ The schema in a hierarchical format is imported. It the current example it conta
 #### Step 3: Adjust mapping settings
 As soon as schema imported a few more things to be finalized:
  1.	Set a collection reference (1): JSON path to be specified. In our case it is: ```$['d']['results']```
- 2.	Expand node results and remove columns that are not necessary to be imported. 
+ 2.	Expand the node ```results``` and remove columns that are not necessary to be imported. 
  3.	Exclude value ```__next``` from the mapping, it should not be included in the final export 
 
 #### Step 4. Run a test execution
@@ -76,7 +76,7 @@ However, the data source contains more than 500 rows and the details page shows 
 
 
 
-### Setting up a pagination rules
+### Setting up a pagination
 
 Normally, REST API limits its response size of a single request under a reasonable number; while to return large amounts of data, it splits the result into multiple pages and requires callers to send consecutive requests to get the next page of the result. Therefore, to get all rows pagination to be configured for a source data store.
 
