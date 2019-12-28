@@ -142,6 +142,6 @@ After setting up all dependent objects it is time to perform a test execution to
 ### Final words
 The second piece of the pipeline – a Copy activity was implemented. It establishes connections with a REST data source, and it tries to write data to Azure storage. 
 
-The REST data source outputs data in a JSON format, however, we specified to write data to the sink as a “Delimited Text”, therefore Mapping and Pagination also need to be implemented and I will cover it in a next blog post.
+The REST data source outputs data in a JSON format, however, we specified to write data to the sink as a “Delimited Text”, therefore Mapping and Pagination also need to be implemented and it is covered in a next blog post - <a href="/2019/adfv2-rest-api-part3-mapping-pagination">Azure Data Factory and REST APIs - Mapping and Pagination</a>
 
 Many thanks for reading.
