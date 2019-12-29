@@ -2,7 +2,7 @@
 layout: post
 title: Azure Data Factory and REST APIs - Encrypting Secrets with a Key Vault
 description: Azure Data Factory and REST APIs - Encrypting Secrets with a Key Vault
-comments: false
+comments: true
 keywords: Azure Data Factory REST API Encrypting Key Vault
 tags: [ADF, KeyVault]
 category: Dev
