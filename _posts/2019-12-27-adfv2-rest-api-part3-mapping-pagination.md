@@ -2,7 +2,7 @@
 layout: post
 title: Azure Data Factory and REST APIs - Mapping and Pagination
 description: Azure Data Factory and REST APIs - Mapping and Pagination
-comments: false
+comments: true
 keywords: Azure Data Factory REST API Copy Activity Mapping Paging
 published: true 
 ---
