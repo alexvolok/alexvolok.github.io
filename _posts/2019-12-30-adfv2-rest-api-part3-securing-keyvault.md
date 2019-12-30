@@ -123,14 +123,14 @@ Only few small adjustments and we are done:
 
 #### Step 1. Securing an output stream of “Get Access Token” activity
  1.	Click on Get Access Token activity on a canvas pipeline and open tab General
- 2.	Select a checkbox “Secure output”
+ 2.	Check a checkbox “Secure output”
  
     <img src="/assets/images/posts/adf-rest-p4/step3-1.png" alt="Step 3-1" /> 
 
 #### Step 2. Securing an output stream of “Login” activity
  1.	Click on Get Access Token activity on a canvas pipeline and open tab General
- 2.	Select a checkbox “Secure output”
- 3.	Select a checkbox “Secure input”
+ 2.	Check a checkbox “Secure output”
+ 3.	Check a checkbox “Secure input”
 
      <img src="/assets/images/posts/adf-rest-p4/step3-2.png" alt="Step 3-2" /> 
 #### Step 3. Validation
