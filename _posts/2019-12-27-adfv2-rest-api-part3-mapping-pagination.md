@@ -104,6 +104,6 @@ A second execution shows more realistic stats - 26 REST API calls (or pages) loa
 
 The second piece of the pipeline – a Copy activity now is finally looking complete. It does not just establishes connections with a REST data source, also it fetches all expected rows and transforms them from a hierarchical into a tabular format.
 
-In the next post of this series, it is time to touch another important topic – security and storing sensitive data like client secrets or passwords outside of Azure Data Factory.
+In the next post of the series - <a href="/2019/adfv2-rest-api-part3-securing-keyvault">Azure Data Factory and REST APIs - Managing Pipeline Secrets by a Key Vault</a> - is a time to touch another important aspect – security and a management of sensitive data like client secrets or passwords.
 
 Many thanks for reading.

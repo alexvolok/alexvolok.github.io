@@ -1,7 +1,7 @@
 ---
 layout: post
-title: Azure Data Factory and REST APIs - Managing Secrets by a Key Vault
-description: Azure Data Factory and REST APIs - Managing Secrets by a Key Vault
+title: Azure Data Factory and REST APIs - Managing Pipeline Secrets by a Key Vault
+description: Azure Data Factory and REST APIs - Managing Pipeline Secrets by a Key Vault
 comments: true
 keywords: Azure Data Factory REST API Encrypting Key Vault
 tags: [ADF, KeyVault]
