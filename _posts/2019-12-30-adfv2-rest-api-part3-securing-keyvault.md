@@ -21,14 +21,15 @@ Also, this post will cover a security of input and output of activities.
 
 #### Prerequisites
 
- 1. An instance of a Azure Key Vault
+ 1. An instance of an Azure Key Vault
  2.	REST API Data source. I use Exact Online SaaS service in this post as an example
  3.	Azure Storage account, for instance Azure Data Lake gen2
 
 
 ### Migrating a sensitive data to a Key Vault
 
-I will not touch within this post a creation of a new instance of a Key Vault. This strainghtforward process is well ilustrated by a Microsoft’s: Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal
+I will not touch within this post a creation of a new instance of a Key Vault. This strainghtforward process is well ilustrated by a Microsoft’s: <a href="https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal" target="_blank">Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal</a>.
+
 Therefore, stepping directly into a creation of the secret and migration of a sensitive data from a pipeline into it
 
 #### Step 1. Create an Azure Key Vault Secret
