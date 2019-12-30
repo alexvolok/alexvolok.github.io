@@ -70,19 +70,89 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 
 
 
+### Adding a Key Vault Secret to a pipeline
 
+#### Step 1. Add a new web activity to a pipeline
+ 1.	Drop a new Web activity and connect it to a “Login”
+ 2.	Name it “Get Access Token”
 
+ <img src="/assets/images/posts/adf-rest-p4/step2-1.png" alt="Step 2-1" /> 
+ 
+#### Step 2. Configure a  “Get Access Token
+ 1.	Open a Settings tab of newly added activity
+ 2.	Paste a Key Vault secret identity URL that was prepared previously (1)
+ 3.	Choose method: GET
+ 4.	Set Authentication: MSI. It means that Key Vault will be accessed using a Managed Service Identity of Azure Data Factory. Previously we set to this account permissions to GET and LIST secrets
+ 5.	Set a resource: https://vault.azure.net
+ 
+ <img src="/assets/images/posts/adf-rest-p4/step2-2.png" alt="Step 2-2" /> 
 
-
-<img src="/assets/images/posts/adf-rest-p4/step2-1.png" alt="Step 2-1" /> 
-
-<img src="/assets/images/posts/adf-rest-p4/step2-2.png" alt="Step 2-2" /> 
+#### Step 3. Replace a hardcoded credential in a Login activity by a Key Vault Secret
+ 1.	On a pipeline click on “Login” activity and open tab “Settings”
+ 2.	In a field Body - Replace a hardcoded credential with an expression: ```@activity('Get Access Token').output.value```
+ 
 
 <img src="/assets/images/posts/adf-rest-p4/step2-3.png" alt="Step 2-3" /> 
 
+<br /> 
+
+That’s it. The pipeline does not store sensitive data. During each execution the secret will be retreived from a Key Vault.
+
+#### Step 4. Run a test execution
+
+ 1.	Hist on “Debug” button and wait when the execution is over. The good sign that all activities executed successfully (1), which means that last our actions didn’t break anything in a pipeline.
+ 2.	Click on an output of the Get Access Token (2):
+
 <img src="/assets/images/posts/adf-rest-p4/step2-4.png" alt="Step 2-4" /> 
 
+The output window shows credentials still passed as a plain text. Such information is captured by logging
+
 <img src="/assets/images/posts/adf-rest-p4/step2-5.png" alt="Step 2-5" /> 
+
+Luckily, this small issue is easy to fix and it will be done in a next section. 
+
+
+
+
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+
+
+
+
 
 <img src="/assets/images/posts/adf-rest-p4/step3-1.png" alt="Step 3-1" /> 
 
