@@ -133,6 +133,7 @@ Only few small adjustments and we are done:
  3.	Check a checkbox “Secure input”
 
      <img src="/assets/images/posts/adf-rest-p4/step3-2.png" alt="Step 3-2" /> 
+
 #### Step 3. Validation
 
 Hit a debug button, wait when the web activities execution is over and examine the output:
