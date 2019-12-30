@@ -113,58 +113,42 @@ Luckily, this small issue is easy to fix and it will be done in a next section.
 
 
 
+### Securing input and output streams of pipeline activities
 
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
+Our pipeline has two web tasks that sends and receives a sensitive data in unencrypted way: 
 
+  <img src="/assets/images/posts/adf-rest-p4/step3-0.png" alt="Step 3-0" /> 
 
+These activities requires small be adjusted one by one 
 
+#### Step 1. Securing an output stream of “Get Access Token” activity
+ 1.	Click on Get Access Token activity on a canvas pipeline and open tab General
+ 2.	Select a checkbox “Secure output”
+ 
+    <img src="/assets/images/posts/adf-rest-p4/step3-1.png" alt="Step 3-1" /> 
 
+#### Step 2. Securing an output stream of “Login” activity
+ 1.	Click on Get Access Token activity on a canvas pipeline and open tab General
+ 2.	Select a checkbox “Secure output”
+ 3.	Select a checkbox “Secure input”
 
+     <img src="/assets/images/posts/adf-rest-p4/step3-2.png" alt="Step 3-2" /> 
+#### Step 3. Validation
 
-
-
-<img src="/assets/images/posts/adf-rest-p4/step3-1.png" alt="Step 3-1" /> 
-
-<img src="/assets/images/posts/adf-rest-p4/step3-2.png" alt="Step 3-2" /> 
+Hit a debug button, wait when the web activities execution is over and examine the output:
 
 <img src="/assets/images/posts/adf-rest-p4/step3-3.png" alt="Step 3-3" /> 
+ 
+This time the output window shows scrambled text only. This is a desired effect, because such non-sensitive text flow comes to the logs instead of secrets which are send and intercepted by logging subsystem as a plain text.
 
 
 ### Final words
 
-The second piece of the pipeline – a Copy activity now is finally looking complete. It does not just establishes connections with a REST data source, also it fetches all expected rows and transforms them from a hierarchical into a tabular format.
-
-In the next post of this series, it is time to touch another important topic – security and storing sensitive data like client secrets or passwords outside of Azure Data Factory.
+The third piece of our pipeline – a management of secrets by a Key Vault also has a place in an implementation. Also, the pipeline activities  do not send secrets as a plain text anymore.
 
 Many thanks for reading.
+
+
+
+
+
