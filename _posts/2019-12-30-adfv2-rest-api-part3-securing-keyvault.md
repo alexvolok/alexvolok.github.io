@@ -119,7 +119,7 @@ Our pipeline has two web tasks that sends and receives a sensitive data in unenc
 
   <img src="/assets/images/posts/adf-rest-p4/step3-0.png" alt="Step 3-0" /> 
 
-These activities requires small be adjusted one by one 
+Only few small adjustments and we are done: 
 
 #### Step 1. Securing an output stream of “Get Access Token” activity
  1.	Click on Get Access Token activity on a canvas pipeline and open tab General
