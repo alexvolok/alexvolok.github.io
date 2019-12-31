@@ -8,16 +8,16 @@ published: true
 ---
 
 
-In this blog post I would like to put a light on a mapping and then pagination of a Copy activity which are often required for the ingestion of REST data. 
+In this blog post I would like to put a light on a mapping and pagination of a Copy activity which are often are requirements for the ingestion of REST data. 
 
-Mapping is optional for structured data, like databases, parquet or csv files, because the incoming dataset contains an inherited structure, so the Data Factory is smart enough to set it as a default mapping on a fly. 
+Mapping is optional for data sources, like relational databases, parquet or csv files, because the incoming dataset contains an inherited structure, so the Data Factory is smart enough to pick it up and set as a default mapping. 
 
 However, to ingest hierarchical data like JSON or REST and then load it in as a tabular format an explicit schema mapping is required. In the previous blog post – <a href="/2019/adfv2-rest-api-part2-copy-activity">Azure Data Factory and REST APIs - Setting up a Copy activity</a> – such mapping was not provided yet explicitly. As a result, ADF was not able to write an incoming data streams in a tabular form and created an empty csv file. This post will fill such gap. Also, it will cover pagination which is also a common thing for REST APIs.
 
 
 #### Prerequisites
 
- 1.	REST API Data source. I use ExactOnline SaaS service in this post as an example.
+ 1.	REST API Data source. I use Exact Online SaaS service in this post as an example.
  2.	Azure Storage account.
 
 
@@ -32,14 +32,14 @@ In this post I will describe a second approach – *import of schema*. This is a
 <img src="/assets/images/posts/adf-rest-p3/step1-01.png" alt="Step 1-1" /> 
 <br /><br />
 
-However, because the current example uses oauth2, there is one prerequisite that must be fulfilled - bearer token to be passed on a design time. This token is necessary to get authentication during schema import, just because Azure Data Factory makes a call to API and load sample data for further parsing and extraction of the schema. Because of this, following window will popup and it expects token to be entered:
+However, because the current example uses oauth2, there is one prerequisite that must be fulfilled - bearer token to be passed on a design time. This token is necessary to get authenticated during schema import, just because Azure Data Factory makes a call to API to get a sample data for further parsing and extraction of the schema. Because of this, following window will popup and it expects token to be entered:
  
 <img src="/assets/images/posts/adf-rest-p3/step1-02.png" alt="Step 1-1" /> 
 <br /><br />
 
 
 #### Step 1: Retrieve a bearer token
-The access token can be retrieved by running a debug execution (1) and opening an output window (2) of a Login activity.
+To obtain the access token run a debug execution (1) and copy it from an  output window (2) of a Login activity.
 
 
 <img src="/assets/images/posts/adf-rest-p3/step1-1.png" alt="Step 1-1" />
@@ -51,16 +51,16 @@ As the result, the schema of a hierarchical format is imported. In the current e
 
  1.	A Root element – ```d``` (2)
  2.	A collection of items – ```results``` (3)
- 3.	A string value ```__next``` (4) holds a URL to another page. Later this value will be used for a pagination
+ 3.	A string value ```__next``` (4) that holds a URL to another page. Later this value will be used for a pagination
 
 
 <img src="/assets/images/posts/adf-rest-p3/step1-2.png" alt="Step 1-2" />
 
 #### Step 3: Adjust mapping settings
 As soon as schema imported a few more things to be finalized:
- 1.	Set a collection reference (1): JSON path to be specified. In our case it is: ```$['d']['results']```
- 2.	Expand the node ```results``` and remove columns that do not have to be imported. 
- 3.	Exclude value ```__next``` from the mapping, it should not be included in the final export 
+ 1.	Set a collection reference (1): a JSON path to an enumaration of all rows. In our case it is: ```$['d']['results']```
+ 2.	Expand the node ```results``` and remove columns that do not have to be imported (3). 
+ 3.	Exclude value ```__next``` from the mapping, it should not be included in the final export (4).
 
 #### Step 4. Run a test execution
 
@@ -69,7 +69,7 @@ This time Copy activity loads 22 kb of data or 500 rows which is a right step fo
 
 <img src="/assets/images/posts/adf-rest-p3/step1-3.png" alt="Step 1-3" />
 
-However, the data source contains more than 500 rows and the details page shows that only one object was read during fetching from REST. This means that only a single page was processed: 
+However, the data source contains way more than 500 rows and the details page shows that only one object was read during fetching from API. This means that only a single page was processed: 
 
 
 <img src="/assets/images/posts/adf-rest-p3/step1-4.png" alt="Step 1-4" />

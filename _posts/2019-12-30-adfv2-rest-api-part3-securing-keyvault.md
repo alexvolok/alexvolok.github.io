@@ -11,19 +11,19 @@ published: true
 
 
 
-In this post I will touch a slightly different topic from the other few published in a series. The topic is a a security or, to be more precise, the management of secrets like passwords and keys.
+In this post I will touch a slightly different topic to the other few published in a series. The topic is a security or, to be more precise, the management of secrets like passwords and keys.
 
-The pipeline created <a href="/2019/adfv2-rest-api-part3-mapping-pagination">previously</a> finally works. It ingests data from a third-party REST source and stores it in a data lake. However, to get authorized by REST the client id and client secret stored in a web activity configuration as a plain text.
+The pipeline created <a href="/2019/adfv2-rest-api-part3-mapping-pagination">previously</a> finally works. It ingests data from a third-party REST source and stores it in a data lake. However, to be authorized by REST the client id and client secret stored in a web activity configuration as a plain text.
 
-The solution will be improved and become more secure by adding the Azure Key Vault to the scene, because this service can be used to securely store and tightly control access to tokens, passwords, certificates, API keys, and other secrets.
+The solution will be improved and become more secure by adding the Azure Key Vault to the scene. This service can be used to securely store and tightly control access to tokens, passwords, certificates, API keys, and other secrets.
 
-Also, this post will cover a security of input and output of activities.
+Also, this post will cover a security of inputs and outputs in activities.
 
 #### Prerequisites
 
  1. An instance of an Azure Key Vault
- 2.	REST API Data source. I use Exact Online SaaS service in this post as an example
- 3.	Azure Storage account, for instance Azure Data Lake gen2
+ 2.	REST API as data source. I use Exact Online SaaS service in this post as an example
+ 3.	Azure Storage account. For instance, Azure Data Lake gen2
 
 
 ### Migrating a sensitive data to a Key Vault
@@ -34,27 +34,29 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 
 #### Step 1. Create an Azure Key Vault Secret
 
- 1.	Open a Key Vault service page in Azure Portal
- 2.	Click on link “Secrets” which can be found on a  left pane in a section “Settings”.
- 3.	In a form “Create secret” fill following fields:
+ 1. Open an existing Login activity and copy the entire string from a Body field into a clipboard
+ 2.	Open a Key Vault service page in Azure Portal
+ 3.	Click on link “Secrets” which can be found on a  left pane in a section “Settings”.
+ 4.	In a form “Create secret” fill following fields:
      -	Upload options: Manual
      -	Name: KV-EOL-REFRESH-TOKEN
-     -	Value: Copy the value from a “Body” field of an existing Login activity
- 4.	Click on “Create”  
+     -	Value: Paste a copied previusly in a step 1 string
+ 5.	Click on “Create”  
 
  <img src="/assets/images/posts/adf-rest-p4/step1-1.png" alt="Step 1-1" /> 
  
 #### Step 2. Prepare an URL of a Key Vault Secret
 
- 1.	As soon as a new secret created open it and copy the URL “Secret Identifier” (1) to the clipboard
+ 1.	As soon as a new secret is created open it and copy the URL “Secret Identifier” (1) to the clipboard
 
 <img src="/assets/images/posts/adf-rest-p4/step1-2.png" alt="Step 1-2" /> 
 
 #### Step 3. Grant access of ADF to a Key Vault
-
- 1.	Open “Access Policies”
- 2.	Click on “+ Add Access Policy”
- 3.	On a form “Add access policy” fill:
+ 
+ 1. Open a Key Vault service page in Azure Portal
+ 2.	Open “Access Policies”
+ 3.	Click on “+ Add Access Policy”
+ 4.	On a form “Add access policy” fill:
 
      -	Configure from template: Secret Management
 
@@ -62,9 +64,9 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 
      -	Select principal: enter a name of Azure Data Factory instance
 
- 4.	Click on Add to submit a form.
+ 5.	Click on Add to submit a form.
 
- 5.	On a parent page “Access Policies” click on Save.
+ 6.	On a parent page “Access Policies” click on Save.
 
   <img src="/assets/images/posts/adf-rest-p4/step1-3.png" alt="Step 1-3" /> 
 
@@ -74,7 +76,7 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 
 #### Step 1. Add a new web activity to a pipeline
  1.	Drop a new Web activity and connect it to a “Login”
- 2.	Name it “Get Access Token”
+ 2.	Rename it “Get Access Token”
 
  <img src="/assets/images/posts/adf-rest-p4/step2-1.png" alt="Step 2-1" /> 
  
@@ -88,7 +90,7 @@ Therefore, stepping directly into a creation of the secret and migration of a se
  <img src="/assets/images/posts/adf-rest-p4/step2-2.png" alt="Step 2-2" /> 
 
 #### Step 3. Replace a hardcoded credential in a Login activity by a Key Vault Secret
- 1.	On a pipeline click on “Login” activity and open tab “Settings”
+ 1.	On a pipeline canvas click on “Login” activity and then open tab “Settings”
  2.	In a field Body - Replace a hardcoded credential with an expression: ```@activity('Get Access Token').output.value```
  
 
@@ -96,16 +98,16 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 
 <br /> 
 
-That’s it. The pipeline does not store sensitive data. During each execution the secret will be retreived from a Key Vault.
+That’s it. The pipeline does not store sensitive data anymore, it was moved to a Key Vault. During each execution the secret will be retreived from that service.
 
 #### Step 4. Run a test execution
 
- 1.	Hist on “Debug” button and wait when the execution is over. The good sign that all activities executed successfully (1), which means that last our actions didn’t break anything in a pipeline.
+ 1.	Hit on “Debug” button and wait when the execution is over. The good sign that all activities executed successfully (1), which means that last our actions didn’t break a pipeline.
  2.	Click on an output of the Get Access Token (2):
 
 <img src="/assets/images/posts/adf-rest-p4/step2-4.png" alt="Step 2-4" /> 
 
-The output window shows credentials still passed as a plain text. Such information is captured by logging
+The output window shows that credentials still passed as a plain text. The problem is also that such information captured by logging
 
 <img src="/assets/images/posts/adf-rest-p4/step2-5.png" alt="Step 2-5" /> 
 
