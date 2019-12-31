@@ -11,36 +11,36 @@ published: true
 
 
 
-In this post I will touch a slightly different topic to the other few published in a series. The topic is a security or, to be more precise, the management of secrets like passwords and keys.
+In this post, I will touch a slightly different topic to the other few published in a series. The topic is a security or, to be more precise, the management of secrets like passwords and keys.
 
 The pipeline created <a href="/2019/adfv2-rest-api-part3-mapping-pagination">previously</a> finally works. It ingests data from a third-party REST source and stores it in a data lake. However, to be authorized by REST the client id and client secret stored in a web activity configuration as a plain text.
 
 The solution will be improved and become more secure by adding the Azure Key Vault to the scene. This service can be used to securely store and tightly control access to tokens, passwords, certificates, API keys, and other secrets.
 
-Also, this post will cover a security of inputs and outputs in activities.
+Also, this post will cover the security of inputs and outputs in activities.
 
 #### Prerequisites
 
  1. An instance of an Azure Key Vault
- 2.	REST API as data source. I use Exact Online SaaS service in this post as an example
+ 2.	REST API as a data source. I use Exact Online SaaS service in this post as an example
  3.	Azure Storage account. For instance, Azure Data Lake gen2
 
 
 ### Migrating a sensitive data to a Key Vault
 
-I will not touch within this post a creation of a new instance of a Key Vault. This strainghtforward process is well ilustrated by a Microsoft’s: <a href="https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal" target="_blank">Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal</a>.
+I will not touch within this post creation of a new instance of a Key Vault. This straightforward process is well illustrated by Microsoft’s: <a href="https://docs.microsoft.com/en-us/azure/key-vault/quick-create-portal" target="_blank">Quickstart: Set and retrieve a secret from Azure Key Vault using the Azure portal</a>.
 
-Therefore, stepping directly into a creation of the secret and migration of a sensitive data from a pipeline into it
+Therefore, stepping directly into a creation of the secret and migration of sensitive data from a pipeline into it
 
 #### Step 1. Create an Azure Key Vault Secret
 
  1. Open an existing Login activity and copy the entire string from a Body field into a clipboard
  2.	Open a Key Vault service page in Azure Portal
  3.	Click on link “Secrets” which can be found on a  left pane in a section “Settings”.
- 4.	In a form “Create secret” fill following fields:
+ 4.	In the form “Create secret” fill the following fields:
      -	Upload options: Manual
      -	Name: KV-EOL-REFRESH-TOKEN
-     -	Value: Paste a copied previusly in a step 1 string
+     -	Value: Paste a copied previously in a step 1 string
  5.	Click on “Create”  
 
  <img src="/assets/images/posts/adf-rest-p4/step1-1.png" alt="Step 1-1" /> 
@@ -56,13 +56,13 @@ Therefore, stepping directly into a creation of the secret and migration of a se
  1. Open a Key Vault service page in Azure Portal
  2.	Open “Access Policies”
  3.	Click on “+ Add Access Policy”
- 4.	On a form “Add access policy” fill:
+ 4.	On the form “Add access policy” fill:
 
      -	Configure from template: Secret Management
 
      -	Secret permissions: choose Get and List
 
-     -	Select principal: enter a name of Azure Data Factory instance
+     -	Select principal: enter the name of Azure Data Factory instance
 
  5.	Click on Add to submit a form.
 
@@ -83,7 +83,7 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 #### Step 2. Configure a  “Get Access Token
  1.	Open a Settings tab of newly added activity
  2.	Paste a Key Vault secret identity URL that was prepared previously (1)
- 3.	Choose method: GET
+ 3.	Choose a method: GET
  4.	Set Authentication: MSI. It means that Key Vault will be accessed using a Managed Service Identity of Azure Data Factory. Previously we set to this account permissions to GET and LIST secrets
  5.	Set a resource: https://vault.azure.net
  
@@ -98,7 +98,7 @@ Therefore, stepping directly into a creation of the secret and migration of a se
 
 <br /> 
 
-That’s it. The pipeline does not store sensitive data anymore, it was moved to a Key Vault. During each execution the secret will be retreived from that service.
+That’s it. The pipeline does not store sensitive data anymore, it was moved to a Key Vault. During each execution, the secret will be retrieved from that service.
 
 #### Step 4. Run a test execution
 
@@ -111,17 +111,17 @@ The output window shows that credentials still passed as a plain text. The probl
 
 <img src="/assets/images/posts/adf-rest-p4/step2-5.png" alt="Step 2-5" /> 
 
-Luckily, this small issue is easy to fix and it will be done in a next section. 
+Luckily, this small issue is easy to fix and it will be done in the next section. 
 
 
 
 ### Securing input and output streams of pipeline activities
 
-Our pipeline has two web tasks that sends and receives a sensitive data in unencrypted way: 
+Our pipeline has two web tasks that send and receive sensitive data in an unencrypted way: 
 
   <img src="/assets/images/posts/adf-rest-p4/step3-0.png" alt="Step 3-0" /> 
 
-Only few small adjustments and we are done: 
+Only a few small adjustments and we are done: 
 
 #### Step 1. Securing an output stream of “Get Access Token” activity
  1.	Click on Get Access Token activity on a canvas pipeline and open tab General
@@ -142,12 +142,12 @@ Hit a debug button, wait when the web activities execution is over and examine t
 
 <img src="/assets/images/posts/adf-rest-p4/step3-3.png" alt="Step 3-3" /> 
  
-This time the output window shows scrambled text only. This is a desired effect, because such non-sensitive text flow comes to the logs instead of secrets which are send and intercepted by logging subsystem as a plain text.
+This time the output window shows scrambled text only. This is the desired effect because such non-sensitive text flow comes to the logs instead of secrets which are sent and intercepted by the logging subsystem as a plain text.
 
 
 ### Final words
 
-The third piece of our pipeline – a management of secrets by a Key Vault also has a place in an implementation. Also, the pipeline activities  do not send secrets as a plain text anymore.
+The third piece of our pipeline – management of secrets by a Key Vault also has a place in an implementation. Also, the pipeline activities  do not send secrets as plain text anymore.
 
 Many thanks for reading.
 
