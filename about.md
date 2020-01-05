@@ -44,21 +44,19 @@ permalink: /about/
 
 </style>
 
-<h4>Hi, I'm Alex Volok</h4>
-I run SQL databases in a cloud and on-premise, build SSIS and ADF data flows, publish Power BI dashboards and sometimes write about it here. 
-I'm from Delft, NL and currently I do my stuff at <a href="http://www.exact.com">EXACT Software</a>.
-
+I'm Alex Volok, a Microsoft Data Platform specialist from Delft, Netherlands. By having more than 15 years of experience in Microsoft BI and SQL Server Data Engine, I am helping my customers get the maximum output from their data assets.
 <br />
 <h4><i class="fas fa-code"></i> Skills & Technologies</h4>
 
 - Azure Data Lake / Azure Data Factory
 - Azure SQL Database / Azure SQL Datawarehouse
+- Azure DevOps / TFS / CI-CD
 - SQL Server Data Engine starting with 7.0 up to 2017
 - SSIS / SSRS / SSAS Tabular
 - PowerBI / DAX 
 - .NET, C#, ASP.NET MVC
 - PowerShell scripting
-- TFS / Team Foundation Services
+
 
 In-depth knowledge of T-SQL, query tuning, SQL Server Data Engine.
 
@@ -98,22 +96,22 @@ In-depth knowledge of T-SQL, query tuning, SQL Server Data Engine.
             <td class = "td_right">+31 61 466 91 02</td>
         </tr>
         <tr>
-            <td class = "td_left">mobile</td>
-            <td class = "td_right">+31 61 378 53 80</td>
-        </tr>
-        <!-- <tr>
             <td class = "td_left">kvk</td>
-            <td class = "td_right">12345678</td>
+            <td class = "td_right">76783162</td>
         </tr>
-        <tr>
+        
+<!-- <tr>
             <td class = "td_left">btw</td>
             <td class = "td_right">NL60 1234 5678</td>
         </tr>
-        <tr>
-            <td class = "td_left">iban</td>
-            <td class = "td_right">NL65 ABNA 555 444 777</td>
-        </tr> -->
-    </tbody>
+-->
+        
+<tr>
+  <td class = "td_left">iban</td>
+  <td class = "td_right">NL74 ABNA 0867 5750 85</td>
+</tr> 
+
+</tbody>
 </table>
  
 
