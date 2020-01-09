@@ -27,9 +27,9 @@ However, as I mentioned before, the main subject of exams is to ensure that you 
 
 I suggest to watch two related MS Ignite sessions, luckily recordings are still available:
 
- - [Exam Prep DP-200: Implementing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/82936?source=sessions)
+ - [Exam Prep DP-200: Implementing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/82936?source=sessions){:target="_blank"}
 
- - [Exam Prep DP-201: Designing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/80164?source=sessions)
+ - [Exam Prep DP-201: Designing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/80164?source=sessions){:target="_blank"}
 
 The session are led by Microsoft Certified Trainers (MCT), experienced in delivering a content on these topics.
 
@@ -49,7 +49,7 @@ As an alternative, Microsoft offers a set of free online courses on their new le
  -	Perform data engineering with Azure Databricks
  -	Extract knowledge and insights from your data with Azure Databricks
 
-The learning roadmap has another more visual appearance: [Learning path for Azure Data Engineer](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWuAzL)
+The learning roadmap has another more visual appearance: [Learning path for Azure Data Engineer](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWuAzL){:target="_blank"}
 
 An example of the online content:
 
@@ -58,7 +58,7 @@ An example of the online content:
 The completion of the roadmap takes around 40-60 hours. It pays off, because this set of modules covers nearly all subjects touched by exams. 
 These free online courses were also my main training material.
 
-Worth to mention a free to join Microsoft program: [Visual Studio Dev Essentials](https://visualstudio.microsoft.com/dev-essentials/). It unlocks an temporary access to free azure services and training resources like a **Pluralsight** and **LinkedIn Learning**, which can also be helpful during the training phase.
+Worth to mention a free to join Microsoft program: [Visual Studio Dev Essentials](https://visualstudio.microsoft.com/dev-essentials/){:target="_blank"}. It unlocks an temporary access to free azure services and training resources like a **Pluralsight** and **LinkedIn Learning**, which can also be helpful during the training phase.
 
 And of course, there is also an option of paid instructor-led courses via the network of learning partners:
  -	Course DP-200T01-A: Implementing an Azure Data Solution 
