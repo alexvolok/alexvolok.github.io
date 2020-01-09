@@ -66,7 +66,7 @@ And of course, there is also an option of paid instructor-led courses via the ne
 
 ### Was it an “easy to get” certification?
 
-This answer is going to be very subjective, but I have to say – “No, the two required exams are not a something that you can go and pass blindly, without a preparation”. Unless you work with all involved technologies and Azure services during during the last couple years 40 hours per week and already become a master in all of them.
+This answer is going to be very subjective, but I have to say – *“No, the two required exams are not a something that you can go and pass blindly, without a preparation”*. Unless you work with all involved technologies and Azure services during during the last couple years 40 hours per week and already become a master in all of them.
 
 Just to recall, 700 is a passing score. After months of training I was attending exams full of confidence. To my surprise, I received 712 points on a first exam. The second one I passed with not that much better score. Of course, I was glad to receive a congratulations message on a Prometric screen, but the failure was a close call.
 
