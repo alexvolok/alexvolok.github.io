@@ -37,7 +37,7 @@ The session are led by Microsoft Certified Trainers (MCT), experienced in delive
 
 Unfortunately, there is no self-training guide in a form of book available yet for any of the exams. 
 
-As an alternative, Microsoft offers a set of free online courses on their new learning platform: [Microsoft Learn](https://docs.microsoft.com/en-us/learn) which consists of modules:
+As an alternative, Microsoft offers a set of free online courses on their new learning platform: [Microsoft Learn](https://docs.microsoft.com/en-us/learn){:target="_blank"} which consists of modules:
 
  -	Azure for the Data Engineer
  -	Store data in Azure
