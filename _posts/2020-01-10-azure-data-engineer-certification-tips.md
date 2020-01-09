@@ -37,7 +37,7 @@ The session are led by Microsoft Certified Trainers (MCT), experienced in delive
 
 Unfortunately, there is no self-training guide in a form of book available yet for any of the exams. 
 
-As an alternative, Microsoft offers a set of free online courses on their new learning platform: [MS Learn](https://docs.microsoft.com/en-us/learn) which contains:
+As an alternative, Microsoft offers a set of free online courses on their new learning platform: [MS Learn](https://docs.microsoft.com/en-us/learn) which consists of modules:
 
  -	Azure for the Data Engineer
  -	Store data in Azure
@@ -51,7 +51,7 @@ As an alternative, Microsoft offers a set of free online courses on their new le
 
 The learning roadmap has another more visual appearance: [Learning path for Azure Data Engineer](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWuAzL)
 
-As an example:
+An example of the online content:
 
 <img src="/assets/images/posts/azure-data-engineer-cert/example_online.png" alt="the roadmap" /> 
 
