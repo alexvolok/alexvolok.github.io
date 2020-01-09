@@ -25,10 +25,9 @@ However, as I mentioned before, the main subject of exams is to ensure that you 
  -	Azure Streaming Analytics windowing functions
  -	etc etc
 
-During the last Microsoft Ignite at Orlando two related sessions occurred and luckily recordings are still available:
+I suggest to watch two related MS Ignite sessions, luckily recordings are still available:
 
- - [Exam Prep: DP-200 | Implementing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/82936?source=sessions
-)
+ - [Exam Prep: DP-200 | Implementing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/82936?source=sessions)
 
  - [Exam Prep | DP-201: Designing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/80164?source=sessions)
 
