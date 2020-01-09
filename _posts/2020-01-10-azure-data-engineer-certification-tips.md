@@ -27,9 +27,9 @@ However, as I mentioned before, the main subject of exams is to ensure that you 
 
 I suggest to watch two related MS Ignite sessions, luckily recordings are still available:
 
- - [Exam Prep: DP-200 | Implementing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/82936?source=sessions)
+ - [Exam Prep DP-200: Implementing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/82936?source=sessions)
 
- - [Exam Prep | DP-201: Designing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/80164?source=sessions)
+ - [Exam Prep DP-201: Designing an Azure Data Solution](https://myignite.techcommunity.microsoft.com/sessions/80164?source=sessions)
 
 The session are led by Microsoft Certified Trainers (MCT), experienced in delivering a content on these topics.
 
