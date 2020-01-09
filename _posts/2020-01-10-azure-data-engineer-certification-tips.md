@@ -12,7 +12,7 @@ published: true
 
 Recently I passed exams related to a such certification. And since then there is a flow of related but often-repeated questions. Over a time, they are crystalized into a post in Q/A format, which hopefully can be helpful for someone who wants to pass this Microsoft certification.
 
-### What can I expect on exams?
+### What kind of questions can I expect on exams?
 
 The Data Engineer certification, in a contrast to SQL Server related exams, is less technical and more about understanding concepts of various services, their weak and strong sides and at what circumstances and requirements those services can be applied.
 
