@@ -48,7 +48,7 @@ As an alternative, Microsoft offers a set of free online courses on their new le
  -	Perform data engineering with Azure Databricks
  -	Extract knowledge and insights from your data with Azure Databricks
 
-The learning roadmap has another more visual appearance: [Learning path for Azure Data Engineer](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWuAzL){:target="_blank"}
+The learning roadmap has another visual appearance: [Learning path for Azure Data Engineer](https://query.prod.cms.rt.microsoft.com/cms/api/am/binary/RWuAzL){:target="_blank"}
 
 An example of a fraction of the free online content, available at a learning portal:
 
