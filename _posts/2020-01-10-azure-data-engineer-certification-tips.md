@@ -10,7 +10,8 @@ published: true
 ---
 
 
-Recently I passed exams related to a such certification. And since then there is a flow of related but often-repeated questions. Over a time, they are crystalized into a post in Q/A format, which hopefully can be helpful for someone who wants to pass this Microsoft certification.
+Recently I passed exams related to a such certification. And since then there is a flow of related but often-repeated questions. Over a time, they are crystalized into a post in Q/A format, which hopefully can be helpful for someone who wants to pass this Microsoft certification. 
+
 
 ### What kind of questions can I expect on exams?
 
