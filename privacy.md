@@ -16,4 +16,4 @@ Site uses cookies, web beacons, and other storage technologies from a third-part
 
 Cookies are used for:
  - The measurement of the performance of web page loading in order to improve the performance and user experience of the Site.
- - Better understanding of which content brings and interest and for a further improvement of the content. 
+ - Better understanding of which content brings an interest and how the content can be improved. 
