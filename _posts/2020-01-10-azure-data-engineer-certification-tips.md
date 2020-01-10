@@ -77,7 +77,7 @@ Just to recall, 700 is a passing score. After months of training I was attending
 
 I hope that answers on those three questions and the referenced content gives an understanding about the certification and will help to prepare for exams and pass them from a first try.
 
-Many thanks for reading.
+Many thanks for reading..
 
 
 
