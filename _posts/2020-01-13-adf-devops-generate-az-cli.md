@@ -1,9 +1,9 @@
 ---
 layout: post
-title: Azure Data Factory CI/CD - Creation of DEV-STG-PRD using Azure CLI
-description: Azure Data Factory CI/CD - DEV-STG-PRD by Azure CLI
+title: Azure Data Factory & DevOps - Automatoin via Azure CLI
+description: Azure Data Factory & DevOps - Automatoin via Azure CLI
 comments: true
-keywords: Azure Data Factory CI/CD - DEV-STG-PRD by Azure CLI
+keywords: Azure Data Factory & DevOps - Automatoin via Azure CLI
 tags: [Azure]
 category: Dev
 published: true 
