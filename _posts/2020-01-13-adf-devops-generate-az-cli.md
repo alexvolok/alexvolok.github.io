@@ -18,7 +18,7 @@ published: true
 $EnvironmentName = "adf-devops3"
 $Stage = "prd"
 $Location= "westeurope"
-$OutputFormat = "table"
+$OutputFormat = "table" 
 
 
 # internal: assign resource names
