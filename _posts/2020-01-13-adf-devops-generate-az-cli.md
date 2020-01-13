@@ -12,11 +12,11 @@ published: true
 
 ```powershell
 
-#az login
-
-# Step 0: Configure parameters
-$EnvironmentName = "adf-devops3"
-$Stage = "prd"
+#az login  
+  
+# Step 0: Configure parameters  
+$EnvironmentName = "adf-devops3"  
+$Stage = "prd"  
 $Location= "westeurope"
 $OutputFormat = "table" 
 
