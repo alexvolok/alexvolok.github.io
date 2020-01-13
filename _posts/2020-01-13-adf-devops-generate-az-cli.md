@@ -10,7 +10,7 @@ published: true
 ---
 
 
-```powershell
+```sql
 
 #az login  
   
