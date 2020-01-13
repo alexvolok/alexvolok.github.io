@@ -10,14 +10,28 @@ published: true
 ---
 
 
-In this post I will to show how entire Data Factory environments and surrounding services like a Key Vault and a Data Lake can be created by a Azure CLI, so by scripting. Such approach maybe looks tedious and overkilling at a first glance, however it brings reproducibility, enforcement of standards like naming conventions.
+In this post I would like to shift a focus to subjects like automation and DevOps. The intention is to display of how entire Data Factory environment and surrounding services, (Key Vault, Data Lake) can be created by an Azure CLI. 
 
-#### The ADF environments
+Such approach maybe looks tedious and overkilling at a first glance, however it pays back since it brings nice things like reproducibility, enforcement of standards, avoidance of human mistakes.
+
+
+
+
+### Our sample environment
+
+Beside of a plain Data Factory, it is not uncommon that Data Engineers deal with a few additional Azure Services. Often the landscape also includes a Storage account, Key Vault etc. All these pieces create isolated stages or environments: Development, Acceptance and Production. 
+
 
  - Resource Group
    - Key Vault
    - Storage Account
    - Data Factory
+
+<img src="/assets/images/posts/adf-cicd-p1/adf-devops-environments.png" alt="the roadmap" /> 
+
+  
+
+The illustration also shows how naming convention is handy and important to  because all environments expected to be the same.
 
 
 #### Prerequisites
