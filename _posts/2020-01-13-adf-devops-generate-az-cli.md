@@ -10,7 +10,7 @@ published: true
 ---
 
 
-In this post I would like to shift a focus to subjects like automation and DevOps. The intention is to display of how entire Data Factory environment and surrounding services, (Key Vault, Data Lake) can be created by an Azure CLI. 
+In this post I would like to shift a focus to subjects like automation and DevOps. The intention is to display of how entire Data Factory environment and surrounding services can be created by an Azure CLI. 
 
 Such approach maybe looks tedious and overkilling at a first glance, however it pays back since it brings nice things like reproducibility, enforcement of standards, avoidance of human mistakes.
 
@@ -19,23 +19,27 @@ Such approach maybe looks tedious and overkilling at a first glance, however it 
 
 ### Our sample environment
 
-Beside of a plain Data Factory, it is not uncommon that Data Engineers deal with a few additional Azure Services. Often the landscape also includes a Storage account, Key Vault etc. All these pieces create isolated stages or environments: Development, Acceptance and Production. 
+Beside of a plain Data Factory, it is not uncommon that Data Engineers deal with a few additional Azure Services. Often the landscape also includes a Storage account, Key Vault etc. All these pieces create isolated environments for every stage: Development, Acceptance and Production. 
 
-
+<!-- 
  - Resource Group
    - Key Vault
    - Storage Account
-   - Data Factory
+   - Data Factory -->
 
 <img src="/assets/images/posts/adf-cicd-p1/adf-devops-environments.png" alt="the roadmap" /> 
 
   
+The illustration also shows the importance of standardizations in naming conventions and configurations because all environments expected to be the same
 
-The illustration also shows how naming convention is handy and important to  because all environments expected to be the same.
+On a first glance it nice to have stages that also named similarly, however the most important strict naming is a base for further automation and DevOps is all about this.
+
 
 
 #### Prerequisites
-Download Azure CLI
+Azure CLI
+ - Cloud Shell
+ - Local installation. Page: [Install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
 
 #### Building a PowerShell script
@@ -43,7 +47,23 @@ Download Azure CLI
 
 ##### Step 1
 
-Variables
+```powershell
+#az login  
+  
+# Step 0: Configure parameters  
+$EnvironmentName = "adf-devops"  
+$Stage = "dev"  
+$Location= "westeurope"
+$OutputFormat = "table"  # other options: 
+
+
+# internal: assign resource names
+$ResourceGroupName = "rg-$EnvironmentName-$Stage"
+$ADFName = "adf-$EnvironmentName-$Stage"
+$KeyVaultName ="kv-$EnvironmentName-$Stage"
+$StorageName = "adls$EnvironmentName$Stage".Replace("-","")
+```
+
 
 ##### Step 2
 
