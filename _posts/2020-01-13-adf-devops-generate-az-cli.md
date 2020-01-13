@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Azure Data Factory CI/CD - DEV-STG-PRD by Azure CLI
+title: Azure Data Factory CI/CD - Creation of DEV-STG-PRD using Azure CLI
 description: Azure Data Factory CI/CD - DEV-STG-PRD by Azure CLI
 comments: true
 keywords: Azure Data Factory CI/CD - DEV-STG-PRD by Azure CLI
@@ -10,10 +10,35 @@ published: true
 ---
 
 
-```powershell
+In this post I will to show how entire Data Factory environments and surrounding services like a Key Vault and a Data Lake can be created by a Azure CLI, so by scripting. Such approach maybe looks tedious and overkilling at a first glance, however it brings reproducibility, enforcement of standards like naming conventions.
 
-   #az login  
-   
+#### The ADF environments
+
+ - Resource Group
+   - Key Vault
+   - Storage Account
+   - Data Factory
+
+
+#### Prerequisites
+Download Azure CLI
+
+
+#### Building a PowerShell script
+
+
+##### Step 1
+
+Variables
+
+##### Step 2
+
+Create Resource Group
+
+##### Step 3
+
+```powershell
+#az login  
   
 # Step 0: Configure parameters  
 $EnvironmentName = "adf-devops3"  
