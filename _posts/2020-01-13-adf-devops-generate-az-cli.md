@@ -10,7 +10,7 @@ published: true
 ---
 
 
-```sql
+```
 
 #az login  
   
