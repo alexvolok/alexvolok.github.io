@@ -10,9 +10,10 @@ published: true
 ---
 
 
-```
+```powershell
 
-#az login  
+   #az login  
+   
   
 # Step 0: Configure parameters  
 $EnvironmentName = "adf-devops3"  
