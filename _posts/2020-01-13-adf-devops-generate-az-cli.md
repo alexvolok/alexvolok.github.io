@@ -44,20 +44,23 @@ There are few ways of using Azure CLI:
 
 
 
-### Building a PowerShell script
+### Coding a PowerShell script
+
+##### Step 1: Naming convention and resource names
+
+First things first, lets define a basic input like the location of the new azure resources, name of the environment and pick a right stage: dev, test or production:
 
 
-##### Step 1: Resources names and a naming convention
+
 
 ```powershell
 #az login  
   
-# Step 0: Configure parameters  
+# Step 1: Configure input parameters  
 $EnvironmentName = "adf-devops"  
-$Stage = "dev"  
+$Stage = "dev" # other options: stg | prd  
 $Location= "westeurope"
-$OutputFormat = "table"  # other options: 
-
+$OutputFormat = "table"  # other options: json | jsonc | yaml | tsv
 
 # internal: assign resource names
 $ResourceGroupName = "rg-$EnvironmentName-$Stage"
@@ -67,25 +70,106 @@ $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
 ```
 
 
+And a one-liner to check values of variables:
+
+```powershell
+Get-Variable ResourceGroupName, ADFName, KeyVaultName, StorageName | Format-Table 
+```
+
+Which results to a desired result:
+<img src="/assets/images/posts/adf-cicd-p1/ps-variables.png" alt="the roadmap" />  
+
+
+
 ##### Step 2: Resource Group
 
-Create Resource Group
+The next logical step is to create a Resource Group that will act as a container for remaining services:
 
-##### Step 3: Key Vault
+```powershell
+# Step 2: Create a Resource Group
+if (-Not (az group list --query "[].{Name:name}" -o table).Contains($ResourceGroupName))
+{
+    "Create a new resource group: $ResourceGroupName" 
+    az group create --name $ResourceGroupName --location $Location --output $OutputFormat
+}
+else
+{
+   "Resource Group: $ResourceGroupName already exists"
+}
+```
 
-##### Step 4: Storage Account
+Please note that a check of existing of the resource priors to the creation of such resource. For the resource group it is not a big deal, since Az CLI will not raise alerts or warnings if the resource group already exists. However, some other services will raise it.
 
-##### Step 5: Data Factory
+##### Step 3: Key Vault and Storage Account
+Creation of Key Vault and Storage accounts is similar to a Resource Group:
 
-##### Step 6: Final Script
+```powershell
+# Step 3a: Create a Key Vault
+if (-Not (az keyvault list --resource-group $ResourceGroupName ` --query "[].{Name:name}" -o table).Contains($KeyVaultName))
+{
+    Write-Host "Creating a new key vault account: $KeyVaultName"
+    az keyvault create `
+       --location $Location `
+       --name $KeyVaultName `
+       --resource-group $ResourceGroupName `
+       --output $OutputFormat
+    
+}
+else
+{
+    "Key Vault: Resource $KeyVaultName already exists"
+}
+
+# Step 3b: Create a Storage Account
+if (-Not (az storage account list --resource-group $ResourceGroupName --query "[].{Name:name}" -o table).Contains($StorageName))
+{
+       Write-Host "Creating a new storage account: $StorageName"
+       
+       az storage account create `
+       --name $StorageName `
+        --resource-group $ResourceGroupName `
+        --location $Location `
+        --sku "Standard_LRS" `
+        --kind "StorageV2" `
+        --enable-hierarchical-namespace $true  `
+        --output $OutputFormat      
+}
+else
+{
+    "Storage: Account $StorageName already exists"
+}
+```
+
+##### Step 4: Data Factory
+
+In contrast to other azure services created in this post, the Data Factory still has no support of Azure CLI, therefore, there still no command like:
+
+```powershell
+az datafactory create …
+```
+
+The workaround is to use an ARM template which can be placed to a storage account or, in case of a local PowerShell session, can also be stored on a local drive. In a next example, I uploaded the template to a cloud storage and accessing it directly via az group deployment command:
+
+```powershell
+# Step 4: Create a Data Factory
+az group deployment create `
+  --resource-group $ResourceGroupName `
+  --template-uri "https://csb17117e738f3dx40f1xa56.blob.core.windows.net/templates/adf.json" `
+  --parameters name=$ADFName location=$Location `
+  --output $OutputFormat
+
+```
+
+
+##### Step 5: The Final Script
 By gathering all parts together the final script:
 
 ```powershell
 #az login  
   
-# Step 0: Configure parameters  
-$EnvironmentName = "adf-devops3"  
-$Stage = "prd"  
+# Step 1: Configure parameters  
+$EnvironmentName = "adf-devops"  
+$Stage = "dev"  
 $Location= "westeurope"
 $OutputFormat = "table" 
 
@@ -99,7 +183,7 @@ $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
 
 
 
-# Step 1: Create a Resource Group
+# Step 2: Create a Resource Group
 if (-Not (az group list --query "[].{Name:name}" -o table).Contains($ResourceGroupName))
 {
     "Create a new resource group: $ResourceGroupName" 
@@ -113,7 +197,7 @@ else
 
 
 
-# Step 2: Create a Key Vault
+# Step 3a: Create a Key Vault
 if (-Not (az keyvault list --resource-group $ResourceGroupName ` --query "[].{Name:name}" -o table).Contains($KeyVaultName))
 {
     Write-Host "Creating a new key vault account: $KeyVaultName"
@@ -130,7 +214,7 @@ else
 }
 
 
-# Step 3: Create a Storage Account
+# Step 3b: Create a Storage Account
 if (-Not (az storage account list --resource-group $ResourceGroupName --query "[].{Name:name}" -o table).Contains($StorageName))
 {
        Write-Host "Creating a new storage account: $StorageName"
