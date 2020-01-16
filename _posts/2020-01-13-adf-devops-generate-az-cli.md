@@ -46,7 +46,7 @@ There are few ways of using Azure CLI:
 
 ### Coding a PowerShell script
 
-##### Step 1: Naming convention and resource names
+##### Step 1: A naming convention and resource names
 
 First things first, lets define a basic input like the location of the new azure resources, name of the environment and pick a right stage: dev, test or production:
 
@@ -148,7 +148,44 @@ In contrast to other azure services created in this post, the Data Factory still
 az datafactory create …
 ```
 
-The workaround is to use an ARM template which can be placed to a storage account or, in case of a local PowerShell session, can also be stored on a local drive. In a next example, I uploaded the template to a cloud storage and accessing it directly via az group deployment command:
+The workaround is to use an ARM template which can be placed to a storage account or, in case of a local PowerShell session, can be invoked from a local drive. 
+
+The template:
+
+```json
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "name": {
+            "defaultValue": "myv2datafactory",
+            "type": "String"
+        },
+        "location": {
+            "defaultValue": "East US",
+            "type": "String"
+        },
+        "apiVersion": {
+            "defaultValue": "2018-06-01",
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.DataFactory/factories",
+            "apiVersion": "[parameters('apiVersion')]",
+            "name": "[parameters('name')]",
+            "location": "[parameters('location')]",
+            "identity": {
+                "type": "SystemAssigned"
+            },
+            "properties": {}
+        }
+    ]
+}
+```
+
+I uploaded the template to a cloud storage and will access it directly by a `az group deployment` command:
 
 ```powershell
 # Step 4: Create a Data Factory
@@ -162,16 +199,14 @@ az group deployment create `
 
 
 ##### Step 5: The Final Script
-By gathering all parts together the final script:
+It is a time to glue all parts together into a single script that will be used to generate development, test and production environments:
 
 ```powershell
-#az login  
-  
-# Step 1: Configure parameters  
-$EnvironmentName = "adf-devops"  
-$Stage = "dev"  
-$Location= "westeurope"
-$OutputFormat = "table" 
+# Step 1: Input parameters  
+param([String]$EnvironmentName = "adf-devops", [String]$Stage = "dev", [String]$Location = "westeurope")
+
+
+$OutputFormat = "table"  # other options: json | jsonc | yaml | tsv
 
 
 # internal: assign resource names
@@ -181,6 +216,7 @@ $KeyVaultName ="kv-$EnvironmentName-$Stage"
 $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
 
 
+Get-Variable ResourceGroupName, ADFName, KeyVaultName, StorageName | Format-Table 
 
 
 # Step 2: Create a Resource Group
@@ -193,6 +229,7 @@ else
 {
    "Resource Group: $ResourceGroupName already exists"
 }
+
 
 
 
@@ -212,7 +249,6 @@ else
 {
     "Key Vault: Resource $KeyVaultName already exists"
 }
-
 
 # Step 3b: Create a Storage Account
 if (-Not (az storage account list --resource-group $ResourceGroupName --query "[].{Name:name}" -o table).Contains($StorageName))
@@ -234,14 +270,38 @@ else
 }
 
 
+
+
 # Step 4: Create a Data Factory
 az group deployment create `
   --resource-group $ResourceGroupName `
-  --template-uri "https://csb17117e738f3dx40f1xa56.blob.core.windows.net/templates/adf.json" `
+  --template-file "./adf.json" `
   --parameters name=$ADFName location=$Location `
   --output $OutputFormat
 
 ```
+
+
+### Generating three isolated environments
+
+```powershell
+
+# folder with scripts:
+cd C:\adf-devops
+
+# Development:
+.\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "dev" -Location "westeurope"
+
+# Staging:
+.\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "stg" -Location "westeurope"
+
+#Production
+.\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "prd" -Location "westeurope"
+```
+
+
+
+
 
 #### Final words
 
