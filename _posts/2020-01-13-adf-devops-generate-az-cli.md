@@ -76,7 +76,6 @@ And a one-liner to check values of variables:
 Get-Variable ResourceGroupName, ADFName, KeyVaultName, StorageName | Format-Table 
 ```
 
-Which results to a desired result:
 <img src="/assets/images/posts/adf-cicd-p1/ps-variables.png" alt="the roadmap" />  
 
 
@@ -295,7 +294,7 @@ az group deployment create `
 ```
 
 
-
+<img src="/assets/images/posts/adf-cicd-p1/generated-objects.png" alt="the roadmap" />  
 
 
 #### Final words
