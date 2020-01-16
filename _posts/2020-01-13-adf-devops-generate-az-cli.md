@@ -10,57 +10,51 @@ published: true
 ---
 
 
-In this post I would like to shift a focus to subjects like automation and DevOps. The intention is to display of how entire Data Factory environment and surrounding services can be deployed a command line or to be more precise, by an Azure CLI. 
+In a coming series of posts, I would like to shift a focus to subjects like automation and DevOps. This post will show how the entire Data Factory environment and surrounding services can be deployed by a command line or be more precise, by the Azure CLI. 
 
-Such approach maybe looks tedious and overkilling at a first glance, however it pays back since it brings nice things like reproducibility, enforcement of standards, avoidance of human mistakes.
+Such an approach may be look tedious and overkilling at a first glance, however, it pays back since it brings nice things like reproducibility, enforcement of standards, avoidance of human mistakes.
 
 
-### Our sample environment
+### Our sample environments
 
-Beside of a plain Data Factory, it is not uncommon that Data Engineers deal with a few additional Azure Services. Often the landscape also includes a Storage account, Key Vault etc. All these pieces create isolated environments for every stage: Development, Acceptance and Production. 
+Beside of a plain data factory, it is not uncommon that data engineers use some extra Azure services. Often the landscape also includes a storage account, key vault, etc. All these pieces create together isolated environments for every stage: Development, Acceptance, and Production. 
 
-<!-- 
- - Resource Group
-   - Key Vault
-   - Storage Account
-   - Data Factory -->
 
 <img src="/assets/images/posts/adf-cicd-p1/adf-devops-environments.png" alt="the roadmap" /> 
 
   
-The illustration above also shows the importance of standardizations in naming conventions and configurations because all environments expected to be the same
+The picture above illustrates the importance of standardization and naming convention. All environments do not look similar, they have to be created and named in a consistently.
 
-On a first glance it nice to have stages that also named similarly, however the most important strict naming is a base for further automation and DevOps is all about this.
-
-
+At first glance it nice to have stages that also named similarly, however the most important is that strict naming is a base for further automation and scripting.
 
 #### Prerequisites
- -	Azure CLI. This is a modern cross-platform command line tool to manage azure services. It comes a replacement to older library AzureRM (https://azure.microsoft.com/es-es/blog/azure-powershell-cross-platform-az-module-replacing-azurerm/).
+ -	Azure CLI. This is a modern cross-platform command-line tool to manage Azure services. It comes to a replacement to the older library AzureRM. Read more: [Azure PowerShell – Cross-platform “Az” module replacing “AzureRM”](https://azure.microsoft.com/es-es/blog/azure-powershell-cross-platform-az-module-replacing-azurerm/).
 
-There are few ways of using Azure CLI:
+And there are a few ways of using it:
  -	Using a Cloud Shell. It can be initiated directly from a top azure panel:
  <img src="/assets/images/posts/adf-cicd-p1/cloud-shell.png" alt="the roadmap" /> 
- -	Locally, for instance via PowerShell command line. For this a local installation of AZ CLI is required. For the installation tips check: [Install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
-
+ -	Locally, for instance via the PowerShell command line. For this, a local installation of AZ CLI is required. For the installation tips check: [Install the Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 
 
 ### Coding a PowerShell script
 
+
+
 ##### Step 1: A naming convention and resource names
 
-First things first, lets define a basic input like the location of the new azure resources, name of the environment and pick a right stage: dev, test or production:
-
-
+First things first, let's define a basic input like the location of the new azure resources, name of the environment and pick a right stage: dev, test or production:
 
 
 ```powershell
-#az login  
-  
-# Step 1: Configure input parameters  
-$EnvironmentName = "adf-devops"  
-$Stage = "dev" # other options: stg | prd  
-$Location= "westeurope"
+#az login
+param([String]$EnvironmentName = "adf-devops",` 
+      [String]$Stage = "dev",` 
+      [String]$Location = "westeurope"`
+      )
+
+
 $OutputFormat = "table"  # other options: json | jsonc | yaml | tsv
+
 
 # internal: assign resource names
 $ResourceGroupName = "rg-$EnvironmentName-$Stage"
@@ -69,8 +63,7 @@ $KeyVaultName ="kv-$EnvironmentName-$Stage"
 $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
 ```
 
-
-And a one-liner to check values of variables:
+And then a one-liner to check values of variables:
 
 ```powershell
 Get-Variable ResourceGroupName, ADFName, KeyVaultName, StorageName | Format-Table 
@@ -97,10 +90,12 @@ else
 }
 ```
 
-Please note that a check of existing of the resource priors to the creation of such resource. For the resource group it is not a big deal, since Az CLI will not raise alerts or warnings if the resource group already exists. However, some other services will raise it.
+The code snippet checks for the existence of the resource with the same name before it created. 
+
+For the *Azure Resource Group* it is not an absolute requirement, since Az CLI will not raise alerts or warnings if such resource already exists. However, some other services will do this.
 
 ##### Step 3: Key Vault and Storage Account
-Creation of Key Vault and Storage accounts is similar to a Resource Group:
+Creation of Key Vault and Storage accounts has a very similar logic to a Resource Group:
 
 ```powershell
 # Step 3a: Create a Key Vault
@@ -139,17 +134,17 @@ else
 }
 ```
 
-##### Step 4: Data Factory
+##### Step 4: Adding a Data Factory
 
-In contrast to other azure services created in this post, the Data Factory still has no support of Azure CLI, therefore, there still no command like:
+In contrast to other azure services, that are listed in this post, the Data Factory still has no support of Azure CLI, therefore, there still no command like:
 
 ```powershell
-az datafactory create …
+az datafactory create --name adf-devops …
 ```
 
-The workaround is to use an ARM template which can be placed to a storage account or, in case of a local PowerShell session, can be invoked from a local drive. 
+The workaround is to use an ARM template which is placed to a storage account or stored on a locall filesystem. 
 
-The template:
+This is a basic template and it creates just an empty datafactory:
 
 ```json
 {
@@ -184,13 +179,13 @@ The template:
 }
 ```
 
-I uploaded the template to a cloud storage and will access it directly by a `az group deployment` command:
+I keep it locally and will use later by a `az group deployment` command:
 
 ```powershell
 # Step 4: Create a Data Factory
 az group deployment create `
   --resource-group $ResourceGroupName `
-  --template-uri "https://csb17117e738f3dx40f1xa56.blob.core.windows.net/templates/adf.json" `
+  --template-file "./adf.json" `
   --parameters name=$ADFName location=$Location `
   --output $OutputFormat
 
@@ -198,7 +193,9 @@ az group deployment create `
 
 
 ##### Step 5: The Final Script
-It is a time to glue all parts together into a single script that will be used to generate development, test and production environments:
+It is a time to glue all parts together into a single script that will be used to generate development, test and production environments. 
+
+I saved the script locally as `Create-Environment.ps1` in the same folder as adf.json was saved previously
 
 ```powershell
 # Step 1: Input parameters  
@@ -206,7 +203,6 @@ param([String]$EnvironmentName = "adf-devops",`
       [String]$Stage = "dev",` 
       [String]$Location = "westeurope"`
       )
-
 
 $OutputFormat = "table"  # other options: json | jsonc | yaml | tsv
 
@@ -216,7 +212,6 @@ $ResourceGroupName = "rg-$EnvironmentName-$Stage"
 $ADFName = "adf-$EnvironmentName-$Stage"
 $KeyVaultName ="kv-$EnvironmentName-$Stage"
 $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
-
 
 Get-Variable ResourceGroupName, ADFName, KeyVaultName, StorageName | Format-Table 
 
@@ -233,9 +228,6 @@ else
 }
 
 
-
-
-
 # Step 3a: Create a Key Vault
 if (-Not (az keyvault list --resource-group $ResourceGroupName ` --query "[].{Name:name}" -o table).Contains($KeyVaultName))
 {
@@ -244,8 +236,7 @@ if (-Not (az keyvault list --resource-group $ResourceGroupName ` --query "[].{Na
        --location $Location `
        --name $KeyVaultName `
        --resource-group $ResourceGroupName `
-       --output $OutputFormat
-    
+       --output $OutputFormat    
 }
 else
 {
@@ -271,9 +262,6 @@ else
     "Storage: Account $StorageName already exists"
 }
 
-
-
-
 # Step 4: Create a Data Factory
 az group deployment create `
   --resource-group $ResourceGroupName `
@@ -284,7 +272,11 @@ az group deployment create `
 ```
 
 
-### Generating three isolated environments
+### Development, Staging and Production environments in five minutes
+
+Let's try it in action. Let assume, that the new project has to be started. It has a name `adf-devops2020`. We tasked to create development, staging and production environments. 
+
+The following a few lines will do this work:
 
 ```powershell
 # Development, Staging and Production:
@@ -293,12 +285,13 @@ az group deployment create `
 .\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "prd" -Location "westeurope"
 ```
 
+And, after five minutes of the execution:
 
 <img src="/assets/images/posts/adf-cicd-p1/generated-objects.png" alt="the roadmap" />  
 
 
 #### Final words
 
-..
+The Azure CLI script is complete. It automates a creation of the entire data engineering landscape and brings some extra goodies. Those goodies are: enforced naming convention, standardization and some time saving. Especially if the same task repeats during each project intake step.
 
 Many thanks for reading.
