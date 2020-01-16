@@ -283,7 +283,7 @@ The following a few lines will do this work:
 .\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "prd" -Location "westeurope"
 ```
 
-And, after five minutes of the execution:
+And, after five minutes of the execution the Azure Portal confirms:
 
 <img src="/assets/images/posts/adf-cicd-p1/generated-objects.png" alt="the roadmap" />  
 
