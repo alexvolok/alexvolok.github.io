@@ -92,7 +92,7 @@ else
 
 The code snippet checks for the existence of the resource with the same name before it created. 
 
-For the *Azure Resource Group* it is not an absolute requirement, since Az CLI will not raise alerts or warnings if such resource already exists. However, some other services will do this.
+For the *Azure Resource Group* it is not an absolute requirement since Az CLI will not raise alerts or warnings if such resource already exists. However, some other services will do this.
 
 ##### Step 3: Key Vault and Storage Account
 Creation of Key Vault and Storage accounts has a very similar logic to a Resource Group:
@@ -292,6 +292,6 @@ And, after five minutes of the execution:
 
 #### Final words
 
-The Azure CLI script is complete. It automates a creation of the entire data engineering landscape and brings some extra goodies. Those goodies are: enforced naming convention, standardization and some time saving. Especially if the same task repeats during each project intake step.
+The Azure CLI script is complete. It the automates a creation of the entire data engineering landscape and brings some extra goodies. Those goodies are enforced naming convention, standardization and some time-saving. Especially if the same task repeats during each project intake step.
 
 Many thanks for reading.
