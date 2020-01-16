@@ -12,7 +12,7 @@ published: true
 
 In a coming series of posts, I would like to shift a focus to subjects like automation and DevOps. This post will show how the entire Data Factory environment and surrounding services can be deployed by a command line or be more precise, by the Azure CLI. 
 
-Such an approach may be look tedious and overkilling at a first glance, however, it pays back since it brings nice things like reproducibility, enforcement of standards, avoidance of human mistakes.
+Such an approach may look tedious and overkilling at a first glance, however, it pays back since it brings nice things like reproducibility, enforcement of standards, avoidance of human mistakes.
 
 
 ### Our sample environments
@@ -23,9 +23,8 @@ Beside of a plain data factory, it is not uncommon that data engineers use some 
 <img src="/assets/images/posts/adf-cicd-p1/adf-devops-environments.png" alt="the roadmap" /> 
 
   
-The picture above illustrates the importance of standardization and naming convention. All environments do not look similar, they have to be created and named in a consistently.
-
-At first glance it nice to have stages that also named similarly, however the most important is that strict naming is a base for further automation and scripting.
+The picture above illustrates the importance of standardization and naming convention. All thee environments do not just look similar, they are created and named consistently.
+The most important aspect is that strict naming is a base for further automation, scripting and DevOps.
 
 #### Prerequisites
  -	Azure CLI. This is a modern cross-platform command-line tool to manage Azure services. It comes to a replacement to the older library AzureRM. Read more: [Azure PowerShell – Cross-platform “Az” module replacing “AzureRM”](https://azure.microsoft.com/es-es/blog/azure-powershell-cross-platform-az-module-replacing-azurerm/).
@@ -37,7 +36,6 @@ And there are a few ways of using it:
 
 
 ### Coding a PowerShell script
-
 
 
 ##### Step 1: A naming convention and resource names
@@ -292,6 +290,6 @@ And, after five minutes of the execution:
 
 #### Final words
 
-The Azure CLI script is complete. It the automates a creation of the entire data engineering landscape and brings some extra goodies. Those goodies are enforced naming convention, standardization and some time-saving. Especially if the same task repeats during each project intake step.
+The Azure CLI script is complete. It automates the creation of the entire data engineering landscape and brings some extra goodies. Those goodies are enforced naming convention, standardization and some time-saving. Especially if the same task repeats during each project intake step.
 
 Many thanks for reading.
