@@ -203,7 +203,10 @@ It is a time to glue all parts together into a single script that will be used t
 
 ```powershell
 # Step 1: Input parameters  
-param([String]$EnvironmentName = "adf-devops", [String]$Stage = "dev", [String]$Location = "westeurope")
+param([String]$EnvironmentName = "adf-devops",` 
+      [String]$Stage = "dev",` 
+      [String]$Location = "westeurope"`
+      )
 
 
 $OutputFormat = "table"  # other options: json | jsonc | yaml | tsv
@@ -285,17 +288,9 @@ az group deployment create `
 ### Generating three isolated environments
 
 ```powershell
-
-# folder with scripts:
-cd C:\adf-devops
-
-# Development:
+# Development, Staging and Production:
 .\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "dev" -Location "westeurope"
-
-# Staging:
 .\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "stg" -Location "westeurope"
-
-#Production
 .\Create-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "prd" -Location "westeurope"
 ```
 
