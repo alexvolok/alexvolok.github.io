@@ -42,8 +42,7 @@ $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
 In this step the script firstly programantically retrieves a connection string of a storage account which is necessary to access this account later. Then it creates a sample container with a name “dwh” and disabled public access and upload a sample file: MoviesDB.csv
 
 ```powershell
-# Configuring a storage account:
-Write-Host "#Step 1.1: Obtaining a connection string"
+"#Step 1.1: Obtaining a connection string"
 $connectionString= (az storage account show-connection-string `
                                 -n $StorageName `
                                 -g $ResourceGroupName `
@@ -52,14 +51,14 @@ $connectionString= (az storage account show-connection-string `
                     )
 
 
-Write-Host "#Step 1.2: Creating a container `dwh` "
+"#Step 1.2: Creating a container `dwh` "
 az storage container create `
             --name "dwh" `
             --public-access off `
             --connection-string $connectionString `
             --output $OutputFormat 
 
-Write-Host "#Step 1.3: uploading a sample dummy file to a container"
+"#Step 1.3: uploading a sample dummy file to a container"
 az storage blob upload `
     --name "MoviesDB.csv" `
     --container "dwh" `
