@@ -188,16 +188,18 @@ Since the environments are already generated and a configuration script is ready
 
 In a contrast to generation of the object, their configuration is relatively fast operation, so execution of the script expected to be finished in seconds. When its done, lets check the result using Azure Portal:
 
-###### Storage account has a container dwh that contains MoviesDB.csv:
+**Check 1. Storage account has a container dwh that contains MoviesDB.csv:**
 
 <img src="/assets/images/posts/adf-cicd-p2/step-1-storage.png" alt="step-1-storage" />  
 
  
-###### Key Vault keeps a secret - AzStorageKey: 
+**Check 2. Key Vault keeps a secret - AzStorageKey:**
+
 <img src="/assets/images/posts/adf-cicd-p2/step-2-keyvault-secret.png" alt="step-2-keyvault-secret" />  
 
  
-###### And Key Vault has an Access Policy that allows Data Factory List and Get operations:
+**Check 3. Key Vault has an Access Policy that allows Data Factory List and Get operations:**
+
 <img src="/assets/images/posts/adf-cicd-p2/step-2-keyvault-access-policy.png" alt="step-3-keyvault-access" />  
 
 
