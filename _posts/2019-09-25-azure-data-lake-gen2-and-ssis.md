@@ -62,7 +62,7 @@ In scenarios of shared usage and fine-grained ACL permissions on a folder level 
 
 <img src="/assets/images/posts/ssis-adls/step1_1.jpg" alt="Step 1" />
 
-The button "Test connection" will show a success message in case if credential has full access to a storage account. In case if credential can access only some certain subfolder the button will keep prompting about connectivity error, however the dataflow will still able to write data correctly to such directory in a data lake.
+> **Warning:** The button "Test connection" will show a success message in case if credential has full access to a storage account. In case if credential can access only some certain subfolder the button will keep prompting about connectivity error, however the dataflow will still able to write data correctly to such directory in a data lake.
 
 
 ##### Step 2: Configure a dataflow destination to use a flexible task
