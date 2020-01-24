@@ -290,6 +290,6 @@ And, after five minutes of the execution the Azure Portal confirms:
 
 #### Final words
 
-The Azure CLI script is complete. It automates the creation of the entire data engineering landscape and brings some extra goodies. Those goodies are enforced naming convention, standardization and some time-saving. Especially if the same task repeats during each project intake step.
+The Azure CLI script is complete. It automates the creation of the entire data engineering landscape and brings some extra goodies. Those goodies are enforced naming convention, standardization and some time-saving. Especially if the same task repeats during each project intake step. In the next post [Post Deployment Configuration via Azure CLI](/2020/2020-01-16-adf-devops-generate-az-cli) - I touch a configuration of the environments in a similar scripting fashion.
 
 Many thanks for reading.
