@@ -16,6 +16,8 @@ Previous post <> is an example example of how to get a brand-new deployment by f
  - **MoviesDB.csv.** This flat dataset is often used by a data engineering trainings and available by a link Github (https://raw.githubusercontent.com/djpmsft/adf-ready-demo/master/moviesDB.csv)
 
 
+<br />
+
 ### Coding a PowerShell script
 
 #### Step 1. A naming convention and resource names 
