@@ -9,7 +9,7 @@ category: Dev
 published: true 
 ---
 
-Previous post [Automated Deployment via Azure CLI](/2020/2020-01-16-adf-devops-generate-az-cli) is an example example of how to get a brand-new deployment by firing a script. However, it comes pretty blank and unconfigured. In this post I would like to talk about an automated post configuration of Azure Data Factory environments. At least a few things can be automated in the most of deployments: creation of storage containers and upload of the sample data. Also, creation of secrets in a Key Vault and granting access of Data Factory to them. 
+Previous post [Automated Deployment via Azure CLI](/2020/adf-devops-generate-az-cli) is an example example of how to get a brand-new deployment by firing a script. However, it comes pretty blank and unconfigured. In this post I would like to talk about an automated post configuration of Azure Data Factory environments. At least a few things can be automated in the most of deployments: creation of storage containers and upload of the sample data. Also, creation of secrets in a Key Vault and granting access of Data Factory to them. 
 
 #### Prerequisites
  -	**Azure CLI.** This is a modern cross-platform command-line tool to manage Azure services. It comes to a replacement to the older library AzureRM. Read more: [Azure PowerShell – Cross-platform “Az” module replacing “AzureRM”](https://azure.microsoft.com/es-es/blog/azure-powershell-cross-platform-az-module-replacing-azurerm/){:target="_blank"}.
