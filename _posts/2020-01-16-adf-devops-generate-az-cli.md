@@ -43,14 +43,30 @@ In this step the script firstly programantically retrieves a connection string o
 
 ```powershell
 # Configuring a storage account:
-Write-Host "#Step 1: Obtaining a connection string"
-$connectionString= (az storage account show-connection-string -n $StorageName -g $ResourceGroupName --query connectionString -o tsv)
+Write-Host "#Step 1.1: Obtaining a connection string"
+$connectionString= (az storage account show-connection-string `
+                                -n $StorageName `
+                                -g $ResourceGroupName `
+                                --query connectionString `
+                                -o tsv `
+                    )
 
-Write-Host "#Step 2: Creating a container `dwh` "
-az storage container create --name "dwh" --public-access off --connection-string $connectionString --output $OutputFormat
 
-Write-Host "#Step 3: uploading a sample dummy file to a container"
-az storage blob upload --name "adf.json" --container "dwh" --file "C:\adf-devops\adf.json" --connection-string $connectionString --no-progress --output $OutputFormat
+Write-Host "#Step 1.2: Creating a container `dwh` "
+az storage container create `
+            --name "dwh" `
+            --public-access off `
+            --connection-string $connectionString `
+            --output $OutputFormat 
+
+Write-Host "#Step 1.3: uploading a sample dummy file to a container"
+az storage blob upload `
+    --name "MoviesDB.csv" `
+    --container "dwh" `
+    --file "C:\adf-devops\MoviesDB.csv" `
+    --connection-string $connectionString `
+    --no-progress `
+    --output $OutputFormat
 ```
 
 #### Step 3. Post-configuration of a Key Vault
@@ -60,15 +76,29 @@ After that a service principal account of a Data Factory will be assigned with p
 
 ```powershell
 # Adding a secret to a Key Vault
-Write-Host "#Step 4: Adding a storage account connection string to a key vault"
-az keyvault secret set --vault-name $KeyVaultName --name "AzStorageKey" --value $connectionString --output $OutputFormat
 
-Write-Host "#Step 5: Obtaining an Object ID of Azure Data Factory instance"
-$ADF_Object_ID =  (az ad sp list --display-name $ADFName  --output tsv  --query "[].{id:objectId}")
+"#Step 2.1: Adding a storage account connection string to a key vault"
+az keyvault secret set `
+            --vault-name $KeyVaultName `
+            --name "AzStorageKey" `
+            --value $connectionString `
+            --output $OutputFormat
 
 
-#Step 6: Granting access permissions of ADF to a KeyVault
-az keyvault set-policy --name $KeyVaultName --object-id $ADF_Object_ID --secret-permissions get list --query "{Status:properties.provisioningState}" --output $OutputFormat
+"#Step 2.2: Obtaining an Object ID of Azure Data Factory instance"
+$ADF_Object_ID =  (az ad sp list `
+                        --display-name $ADFName `
+                        --output tsv `
+                        --query "[].{id:objectId}" `
+                   )
+
+"#Step 2.3: Granting access permissions of ADF to a KeyVault"
+az keyvault set-policy `
+            --name $KeyVaultName `
+            --object-id $ADF_Object_ID `
+            --secret-permissions get list `
+            --query "{Status:properties.provisioningState}" `
+            --output $OutputFormat
 ```
 
 #### Step 4. Placing it all together
@@ -95,27 +125,57 @@ $StorageName = "adls$EnvironmentName$Stage".Replace("-","")
 
 # Configuring a storage account:
 
-Write-Host "#Step 1: Obtaining a connection string"
-$connectionString= (az storage account show-connection-string -n $StorageName -g $ResourceGroupName --query connectionString -o tsv)
+"#Step 1.1: Obtaining a connection string"
+$connectionString= (az storage account show-connection-string `
+                                -n $StorageName `
+                                -g $ResourceGroupName `
+                                --query connectionString `
+                                -o tsv `
+                    )
 
-Write-Host "#Step 2: Creating a container `dwh` "
-az storage container create --name "dwh" --public-access off --connection-string $connectionString --output $OutputFormat
 
-Write-Host "#Step 3: uploading a sample dummy file to a container"
-az storage blob upload --name "adf.json" --container "dwh" --file "C:\adf-devops\adf.json" --connection-string $connectionString --no-progress --output $OutputFormat
+"#Step 1.2: Creating a container `dwh` "
+az storage container create `
+            --name "dwh" `
+            --public-access off `
+            --connection-string $connectionString `
+            --output $OutputFormat 
+
+"#Step 1.3: uploading a sample dummy file to a container"
+az storage blob upload `
+    --name "MoviesDB.csv" `
+    --container "dwh" `
+    --file "C:\adf-devops\MoviesDB.csv" `
+    --connection-string $connectionString `
+    --no-progress `
+    --output $OutputFormat
+
 
 
 # Adding a secret to a Key Vault
 
-Write-Host "#Step 4: Adding a storage account connection string to a key vault"
-az keyvault secret set --vault-name $KeyVaultName --name "AzStorageKey" --value $connectionString --output $OutputFormat
+"#Step 2.1: Adding a storage account connection string to a key vault"
+az keyvault secret set `
+            --vault-name $KeyVaultName `
+            --name "AzStorageKey" `
+            --value $connectionString `
+            --output $OutputFormat
 
 
-Write-Host "#Step 5: Obtaining an Object ID of Azure Data Factory instance"
-$ADF_Object_ID =  (az ad sp list --display-name $ADFName  --output tsv  --query "[].{id:objectId}")
+"#Step 2.2: Obtaining an Object ID of Azure Data Factory instance"
+$ADF_Object_ID =  (az ad sp list `
+                        --display-name $ADFName `
+                        --output tsv `
+                        --query "[].{id:objectId}" `
+                   )
 
-#Step 6: Granting access permissions of ADF to a KeyVault
-az keyvault set-policy --name $KeyVaultName --object-id $ADF_Object_ID --secret-permissions get list --query "{Status:properties.provisioningState}" --output $OutputFormat
+"#Step 2.3: Granting access permissions of ADF to a KeyVault"
+az keyvault set-policy `
+            --name $KeyVaultName `
+            --object-id $ADF_Object_ID `
+            --secret-permissions get list `
+            --query "{Status:properties.provisioningState}" `
+            --output $OutputFormat
 ```
 
 <img src="/assets/images/posts/adf-cicd-p1/generated-objects.png" alt="the roadmap" />  
