@@ -102,7 +102,7 @@ az keyvault set-policy `
 
 #### Step 4. Placing it all together
 
-Finally, lets put all pieces together into a post-configuration script **<script name>**: 
+Finally, lets put all pieces together into a post-configuration script:
 
 
 ```powershell
@@ -176,8 +176,32 @@ az keyvault set-policy `
             --query "{Status:properties.provisioningState}" `
             --output $OutputFormat
 ```
+This script is named as “Configure-Environment.ps1” and placed to the same folder as `MoviesDB.CSV` – `C:\adf-devops\`
 
-<img src="/assets/images/posts/adf-cicd-p1/generated-objects.png" alt="the roadmap" />  
+### A post-configuration script in action
+
+Since the environments are already generated and a configuration script is ready, lets run it to make a production environment configured:
+
+```powershell
+.\Configure-Environment.ps1 -EnvironmentName "adf-devops2020" -Stage "prd" 
+```
+
+In a contrast to generation of the object, their configuration is relatively fast operation, so execution of the script expected to be finished in seconds. When its done, lets check the result using Azure Portal:
+
+###### Storage account has a container dwh that contains MoviesDB.csv:
+
+<img src="/assets/images/posts/adf-cicd-p2/step-1-storage.png" alt="step-1-storage" />  
+
+ 
+###### Key Vault keeps a secret - AzStorageKey: 
+<img src="/assets/images/posts/adf-cicd-p2/step-2-keyvault-secret.png" alt="step-2-keyvault-secret" />  
+
+ 
+###### And Key Vault has an Access Policy that allows Data Factory List and Get operations:
+<img src="/assets/images/posts/adf-cicd-p2/step-2-keyvault-access-policy.png" alt="step-3-keyvault-access" />  
+
+
+
 
 
 #### Final words
