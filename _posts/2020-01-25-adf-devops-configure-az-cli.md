@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Azure Data Factory & DevOps - Post Deployment Configuration via Azure CLI
+title: Azure Data Factory & DevOps - Test of Warning
 description: Azure Data Factory & DevOps - Post Deployment Configuration via Azure CLI
 comments: true
 keywords: Azure Data Factory & DevOps - Post Deployment Configuration via Azure CLI
@@ -10,6 +10,16 @@ published: true
 ---
 
 Previous post - [Automated Deployment via Azure CLI](/2020/adf-devops-generate-az-cli) is an example of how to get a brand-new environment by firing a script. However, it comes pretty blankly and unconfigured. In this post, I would like to talk about an automated configuration of Azure Data Factory deployments. At least a few things can be scripted in most of the cases: creation of storage containers, upload of the sample data, creation of secrets in a Key Vault and granting access of a Data Factory to them. 
+
+#### 1
+>[!WARNING]
+>This is a warning
+
+#### 2
+_**Warning:** Be carefull
+
+#### 3
+> **Warning:** Be carefull
 
 #### Prerequisites
  -	**Azure CLI.** This is a modern cross-platform command-line tool to manage Azure services. It comes to a replacement to the older library AzureRM. Read more: [Azure PowerShell – Cross-platform “Az” module replacing “AzureRM”](https://azure.microsoft.com/es-es/blog/azure-powershell-cross-platform-az-module-replacing-azurerm/){:target="_blank"}.
